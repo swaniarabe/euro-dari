@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euro Dari - Nutrition & Saveurs</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fdfbf7; margin: 0; padding: 0; text-align: center; }
+        header { background-color: #fdfbf7; padding: 20px; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid #eee; }
+        .logo { font-size: 24px; font-weight: bold; color: #5a3e2b; }
+        .logo span { color: #c5a059; }
+        .langs button { background: none; border: 1px solid #ccc; border-radius: 20px; padding: 5px 15px; margin-left: 5px; cursor: pointer; color: #5a3e2b; }
+        .langs .active { background-color: #5a3e2b; color: white; }
+        .hero { padding: 50px 20px; background-color: #f7f3eb; }
+        .hero h1 { font-size: 32px; color: #5a3e2b; margin-bottom: 10px; }
+        .hero h1 span { color: #c5a059; }
+        .hero p { color: #777; max-width: 600px; margin: 0 auto 30px; line-height: 1.6; }
+        .btn-main { background-color: #5a3e2b; color: white; padding: 15px 30px; border: none; border-radius: 30px; font-size: 16px; cursor: pointer; }
+        .products { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px 20px; }
+        .product { background: white; border-radius: 15px; width: 280px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: right; }
+        .product img { width: 100%; border-radius: 10px; height: 180px; object-fit: cover; }
+        .product h3 { color: #5a3e2b; margin: 15px 0 5px; font-size: 18px; }
+        .product .price { color: #c5a059; font-size: 20px; font-weight: bold; margin-bottom: 15px; }
+        .btn-wa { background-color: #25D366; color: white; padding: 12px; border: none; border-radius: 25px; width: 100%; font-size: 15px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Euro <span>Dari</span></div>
+        <div class="langs">
+            <button class="active">FR</button>
+            <button>ES</button>
+            <button>AR</button>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Des saveurs <span>authentiques</span> pour votre bien-être</h1>
+        <p>Fruits secs, boissons sans alcool et produits alimentaires de qualité, sélectionnés avec soin.</p>
+        <button class="btn-main">Découvrir nos produits</button>
+    </div>
+
+    <div class="products">
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=400" alt="Amandes">
+            <div class="badge" style="color: #777; font-size: 12px;">Fruits secs</div>
+            <h3>Amandes Grillées</h3>
+            <div class="price">€ 8.90</div>
+            <button class="btn-wa">Commander sur WhatsApp</button>
+        </div>
+
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?q=80&w=400" alt="Noix de Cajou">
+            <div class="badge" style="color: #777; font-size: 12px;">Fruits secs</div>
+            <h3>Noix de Cajou</h3>
+            <div class="price">€ 10.50</div>
+            <button class="btn-wa">Commander sur WhatsApp</button>
+        </div>
+    </div>
+
+</body>
+</html>
