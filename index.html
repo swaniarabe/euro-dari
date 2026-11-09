@@ -1,362 +1,199 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Euro Dari — Des saveurs authentiques pour votre bien-être</title>
-<style>
-  /* ============ RESET & BASE ============ */
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
-  html{scroll-behavior:smooth}
-  body{background:#fff;color:#333;line-height:1.6;overflow-x:hidden}
-  a{text-decoration:none;color:inherit}
-  img{max-width:100%;display:block}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euro Dari - يورو داري</title>
+    <style>
+        /* التصميم العام */
+        * { box-sizing: border-box; font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f8f9fa; color: #333; }
+        
+        /* الشريط العلوي */
+        .top-bar { background-color: #1a6a5b; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 14px; gap: 10px; }
+        .info-display { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .languages a { color: white; text-decoration: none; margin: 0 8px; cursor: pointer; }
+        .languages a.active { font-weight: bold; color: #ffd700; }
 
-  /* ============ HEADER ============ */
-  header{
-    position:sticky;top:0;z-index:100;
-    background:#fff;padding:15px 40px;
-    display:flex;justify-content:space-between;align-items:center;
-    box-shadow:0 2px 12px rgba(0,0,0,.06);
-  }
-  .logo{font-size:1.6rem;font-weight:800;color:#2c1810;letter-spacing:1px}
-  .logo span{color:#c8a165}
-  .lang-switch{display:flex;gap:8px}
-  .lang-switch button{
-    background:#f5f0ea;border:none;padding:8px 16px;border-radius:20px;
-    font-weight:700;font-size:.85rem;cursor:pointer;color:#555;
-    transition:all .2s;
-  }
-  .lang-switch button:hover{background:#e8dfd3}
-  .lang-switch button.active{background:#c8a165;color:#fff;box-shadow:0 2px 8px rgba(200,161,101,.4)}
+        /* الهيدر واللوغو */
+        .main-header { background-color: white; padding: 20px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { color: #d94825; font-size: 32px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .search-bar { display: flex; width: 100%; max-width: 600px; }
+        .search-bar input { flex: 1; padding: 12px 15px; border: 2px solid #1a6a5b; border-radius: 0 5px 5px 0; outline: none; font-size: 16px; }
+        .search-bar button { padding: 12px 25px; background-color: #1a6a5b; color: white; border: none; border-radius: 5px 0 0 5px; cursor: pointer; font-size: 18px; }
 
-  /* ============ HERO ============ */
-  .hero{
-    background:linear-gradient(135deg,#faf6f0 0%,#efe3d3 100%);
-    padding:80px 40px;
-    display:flex;align-items:center;justify-content:space-between;
-    gap:40px;flex-wrap:wrap;
-  }
-  .hero-text{flex:1;min-width:280px;max-width:600px}
-  .hero-text h1{font-size:2.8rem;font-weight:800;color:#2c1810;line-height:1.2;margin-bottom:20px}
-  .hero-text h1 em{color:#c8a165;font-style:normal}
-  .hero-text p{font-size:1.1rem;color:#666;margin-bottom:30px}
-  .btn{
-    display:inline-block;background:#2c1810;color:#fff;
-    padding:14px 32px;border-radius:40px;font-weight:700;
-    transition:all .2s;
-  }
-  .btn:hover{background:#c8a165;transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,161,101,.4)}
-  .hero-img{
-    flex:1;min-width:280px;max-width:500px;height:350px;
-    background:url('https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=800') center/cover;
-    border-radius:24px;
-    box-shadow:0 20px 40px rgba(0,0,0,.15);
-  }
+        /* شريط الفئات */
+        .brands-bar { background-color: white; padding: 15px 20px; display: flex; gap: 15px; overflow-x: auto; border-bottom: 1px solid #eee; }
+        .brand-btn { padding: 10px 20px; background-color: #f1f1f1; border: 1px solid #ddd; border-radius: 25px; cursor: pointer; font-size: 15px; font-weight: bold; white-space: nowrap; transition: 0.3s; }
+        .brand-btn:hover, .brand-btn.active { background-color: #1a6a5b; color: white; border-color: #1a6a5b; }
 
-  /* ============ SECTIONS ============ */
-  section{padding:80px 40px;max-width:1200px;margin:0 auto}
-  .section-title{font-size:2.2rem;font-weight:800;color:#2c1810;text-align:center;margin-bottom:12px}
-  .section-sub{text-align:center;color:#888;font-size:1.05rem;margin-bottom:50px}
-
-  /* ============ CATEGORIES ============ */
-  .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
-  .cat-card{
-    background:#faf6f0;padding:35px 25px;border-radius:20px;
-    text-align:center;transition:all .3s;border:1px solid #f0e8dc;
-  }
-  .cat-card:hover{transform:translateY(-6px);box-shadow:0 15px 35px rgba(0,0,0,.08)}
-  .cat-icon{font-size:3rem;margin-bottom:15px}
-  .cat-card h3{font-size:1.3rem;color:#2c1810;margin-bottom:10px}
-  .cat-card p{color:#777;font-size:.95rem}
-
-  /* ============ PRODUCTS ============ */
-  .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:25px}
-  .product{
-    background:#fff;border-radius:18px;overflow:hidden;
-    box-shadow:0 4px 20px rgba(0,0,0,.06);
-    transition:all .3s;display:flex;flex-direction:column;
-  }
-  .product:hover{transform:translateY(-6px);box-shadow:0 15px 40px rgba(0,0,0,.12)}
-  .product-img{height:180px;background-size:cover;background-position:center}
-  .product-info{padding:20px;display:flex;flex-direction:column;flex:1}
-  .tag{
-    display:inline-block;background:#efe3d3;color:#8a6d3b;
-    font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:20px;
-    text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;align-self:flex-start;
-  }
-  .product-info h4{font-size:1.15rem;color:#2c1810;margin-bottom:8px}
-  .price{font-size:1.3rem;font-weight:800;color:#c8a165;margin-bottom:15px}
-  .wa-btn{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    background:#25D366;color:#fff;padding:10px 18px;border-radius:30px;
-    font-weight:700;font-size:.9rem;margin-top:auto;
-    transition:all .2s;
-  }
-  .wa-btn:hover{background:#1da851;transform:scale(1.03)}
-  .wa-btn svg{width:18px;height:18px;fill:#fff}
-
-  /* ============ ABOUT ============ */
-  .about{background:#faf6f0;text-align:center;border-radius:24px;margin:40px auto;padding:60px 40px;max-width:1000px}
-  .about h2{font-size:2rem;color:#2c1810;margin-bottom:20px}
-  .about p{color:#666;font-size:1.05rem;max-width:700px;margin:0 auto}
-
-  /* ============ CONTACT ============ */
-  .contact{
-    background:#2c1810;color:#fff;text-align:center;
-    padding:50px 40px;border-radius:24px;margin:40px auto;max-width:1000px;
-  }
-  .contact h2{color:#c8a165;font-size:1.8rem;margin-bottom:20px}
-  .contact p{margin:8px 0;font-size:1rem}
-  .contact a{color:#c8a165;font-weight:700}
-  .contact a:hover{text-decoration:underline}
-
-  /* ============ FOOTER ============ */
-  footer{background:#1a0f0a;color:#aaa;text-align:center;padding:25px;font-size:.9rem}
-  footer strong{color:#c8a165}
-
-  /* ============ RTL SUPPORT ============ */
-  html[dir="rtl"] .hero{flex-direction:row-reverse}
-  html[dir="rtl"] header{flex-direction:row-reverse}
-  html[dir="rtl"] .product-info h4,
-  html[dir="rtl"] .product-info .tag{text-align:right}
-  html[dir="rtl"] .tag{align-self:flex-end}
-
-  /* ============ RESPONSIVE ============ */
-  @media(max-width:768px){
-    header{padding:12px 20px}
-    .logo{font-size:1.3rem}
-    .lang-switch button{padding:6px 12px;font-size:.75rem}
-    .hero{padding:50px 20px;text-align:center;flex-direction:column}
-    .hero-text h1{font-size:2rem}
-    .hero-img{height:250px;width:100%}
-    section{padding:50px 20px}
-    .section-title{font-size:1.7rem}
-    .about,.contact{margin:20px 15px;padding:40px 20px}
-  }
-</style>
+        /* شبكة المنتجات */
+        .main-content { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
+        .product-card { background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .product-card img { max-width: 100%; height: 180px; object-fit: contain; margin-bottom: 15px; }
+        .product-name { font-size: 16px; font-weight: bold; margin-bottom: 10px; color: #333; min-height: 40px; }
+        .product-price { font-size: 20px; font-weight: bold; color: #d94825; }
+        
+        /* تحسينات للهاتف */
+        @media (max-width: 600px) {
+            .top-bar { flex-direction: column; text-align: center; }
+            .info-display { justify-content: center; flex-direction: column; gap: 5px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ============ HEADER ============ -->
-<header>
-  <div class="logo">Euro <span>Dari</span></div>
-  <div class="lang-switch">
-    <button data-lang="fr" class="active">FR</button>
-    <button data-lang="es">ES</button>
-    <button data-lang="ar">AR</button>
-  </div>
-</header>
-
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="hero-text">
-    <h1 data-i18n="heroTitle"></h1>
-    <p data-i18n="heroSub"></p>
-    <a href="#products" class="btn" data-i18n="heroBtn"></a>
-  </div>
-  <div class="hero-img"></div>
-</section>
-
-<!-- ============ CATEGORIES ============ -->
-<section id="categories">
-  <h2 class="section-title" data-i18n="catTitle"></h2>
-  <p class="section-sub" data-i18n="catSub"></p>
-  <div class="categories">
-    <div class="cat-card">
-      <div class="cat-icon">🥜</div>
-      <h3 data-i18n="cat1"></h3>
-      <p data-i18n="cat1desc"></p>
+    <!-- الشريط العلوي: الهاتف، العنوان، واللغات -->
+    <div class="top-bar">
+        <div class="info-display">
+            <span id="phone-display">📞 0758833766</span>
+            <span>|</span>
+            <span id="address-display">📍 9 place du Val d'Aran, Colomiers 31770 Toulouse</span>
+        </div>
+        <div class="languages">
+            <a href="#" onclick="changeLanguage('ar')" id="lang-ar" class="active">العربية</a> | 
+            <a href="#" onclick="changeLanguage('fr')" id="lang-fr">Français</a> | 
+            <a href="#" onclick="changeLanguage('es')" id="lang-es">Español</a>
+        </div>
     </div>
-    <div class="cat-card">
-      <div class="cat-icon">🥤</div>
-      <h3 data-i18n="cat2"></h3>
-      <p data-i18n="cat2desc"></p>
+
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="logo" id="site-logo">Euro Dari</div>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="ابحث عن منتج...">
+            <button id="search-btn">🔍</button>
+        </div>
+    </header>
+
+    <!-- أزرار الفئات -->
+    <div class="brands-bar">
+        <button class="brand-btn active" data-category="all" id="cat-all">الكل</button>
+        <button class="brand-btn" data-category="soda" id="cat-soda">🥤 مشروبات غازية</button>
+        <button class="brand-btn" data-category="food" id="cat-food">🥫 مواد غذائية</button>
+        <button class="brand-btn" data-category="grocery" id="cat-grocery">🛒 بقالة</button>
+        <button class="brand-btn" data-category="nuts" id="cat-nuts">🥜 مكسرات</button>
     </div>
-    <div class="cat-card">
-      <div class="cat-icon">🌾</div>
-      <h3 data-i18n="cat3"></h3>
-      <p data-i18n="cat3desc"></p>
-    </div>
-  </div>
-</section>
 
-<!-- ============ PRODUCTS ============ -->
-<section id="products" style="background:#efe3d3;">
-  <h2 class="section-title" data-i18n="prodTitle"></h2>
-  <p class="section-sub" data-i18n="prodSub"></p>
-  <div class="products" id="productsGrid"></div>
-</section>
+    <!-- عرض المنتجات -->
+    <main class="main-content">
+        <div class="products-grid" id="products-container"></div>
+    </main>
 
-<!-- ============ ABOUT ============ -->
-<section class="about">
-  <h2 data-i18n="aboutTitle"></h2>
-  <p data-i18n="aboutText"></p>
-</section>
+    <script>
+        // --- قاعدة بيانات المنتجات ---
+        const products = [
+            // 1. المشروبات الغازية
+            { id: 1, category: "soda", name: "مشروب غازي كولا 1.5 لتر", price: "12.00 €", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=300&q=80" },
+            { id: 2, category: "soda", name: "مشروب غازي برتقال 1 لتر", price: "10.00 €", img: "https://images.unsplash.com/photo-1624517452488-04869289c4ca?auto=format&fit=crop&w=300&q=80" },
+            { id: 3, category: "soda", name: "مشروب غازي ليمون 1.5 لتر", price: "11.00 €", img: "https://images.unsplash.com/photo-1620148455563-3c1b932d58c8?auto=format&fit=crop&w=300&q=80" },
 
-<!-- ============ CONTACT ============ -->
-<section class="contact">
-  <h2 data-i18n="contactTitle">معلومات الاتصال</h2>
-  <p><strong data-i18n="phoneLabel">الهاتف:</strong> <a href="tel:+33758833766">0758833766</a></p>
-  <p><strong data-i18n="siteLabel">الموقع:</strong> <a href="https://euro-dari.toulouse-fr-es.workers.dev/" target="_blank">euro-dari.toulouse-fr-es.workers.dev</a></p>
-  <p><strong data-i18n="addressLabel">العنوان:</strong> <span data-i18n="address">فرنسا - تولوز</span></p>
-</section>
+            // 2. المواد الغذائية
+            { id: 4, category: "food", name: "معكرونة سباغيتي 500 غرام", price: "8.00 €", img: "https://images.unsplash.com/photo-1626844131082-256783844137?auto=format&fit=crop&w=300&q=80" },
+            { id: 5, category: "food", name: "زيت زيتون بكر ممتاز 1 لتر", price: "85.00 €", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80" },
+            { id: 6, category: "food", name: "تونة معلبة 200 غرام", price: "15.00 €", img: "https://images.unsplash.com/photo-1628271224014-46b9b134dbcd?auto=format&fit=crop&w=300&q=80" },
 
-<!-- ============ FOOTER ============ -->
-<footer>
-  <p>© 2026 <strong>Euro Dari</strong> — <span data-i18n="footer"></span></p>
-</footer>
+            // 3. مواد البقالة
+            { id: 7, category: "grocery", name: "قهوة مطحونة 250 غرام", price: "35.00 €", img: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=300&q=80" },
+            { id: 8, category: "grocery", name: "شاي أخضر 200 غرام", price: "20.00 €", img: "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=300&q=80" },
+            { id: 9, category: "grocery", name: "سكر أبيض 1 كيلوغرام", price: "7.00 €", img: "https://images.unsplash.com/photo-1581609175585-927f8b6db91c?auto=format&fit=crop&w=300&q=80" },
 
-<script>
-/* ============================================================
-   ⚙️  هنا تعدّل كل شيء: الصور، الأثمنة، أسماء المنتجات
-   ============================================================ */
-const PRODUCTS = [
-  { img:"https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=600", price:"€ 8.90",  key:"p1", tag:"tagNuts"  },
-  { img:"https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?w=600", price:"€ 10.50", key:"p2", tag:"tagNuts"  },
-  { img:"https://images.unsplash.com/photo-1517093157656-b9eccef91cb1?w=600", price:"€ 12.00", key:"p3", tag:"tagNuts"  },
-  { img:"https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600", price:"€ 4.50",  key:"p4", tag:"tagDrink" },
-  { img:"https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=600",   price:"€ 3.90",  key:"p5", tag:"tagDrink" },
-  { img:"https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600",   price:"€ 6.20",  key:"p6", tag:"tagDrink" },
-  { img:"https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600", price:"€ 9.80",  key:"p7", tag:"tagFood"  },
-  { img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600", price:"€ 11.00", key:"p8", tag:"tagFood"  },
-  { img:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600", price:"€ 7.30",  key:"p9", tag:"tagFood"  }
-];
+            // 4. المكسرات
+            { id: 10, category: "nuts", name: "لوز مقشر 500 غرام", price: "60.00 €", img: "https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=300&q=80" },
+            { id: 11, category: "nuts", name: "فستق حلبي 500 غرام", price: "75.00 €", img: "https://images.unsplash.com/photo-1596305733576-83e6b2275e34?auto=format&fit=crop&w=300&q=80" },
+            { id: 12, category: "nuts", name: "كاجو محمص 500 غرام", price: "80.00 €", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=300&q=80" }
+        ];
 
-/* 📱 رقم واتساب (بصيغة دولية بدون + وبدون مسافات) */
-const WHATSAPP_NUMBER = "33750037162";
+        // --- الترجمات (تم تحديث الهاتف والعنوان فيها) ---
+        const translations = {
+            ar: { 
+                dir: "rtl", 
+                phone: "📞 0758833766", 
+                address: "📍 9 place du Val d'Aran, Colomiers 31770 Toulouse", 
+                logo: "Euro Dari", 
+                search: "ابحث عن منتج...", 
+                all: "الكل", 
+                soda: "🥤 مشروبات غازية", 
+                food: "🥫 مواد غذائية", 
+                grocery: "🛒 بقالة", 
+                nuts: "🥜 مكسرات" 
+            },
+            fr: { 
+                dir: "ltr", 
+                phone: "📞 0758833766", 
+                address: "📍 9 place du Val d'Aran, Colomiers 31770 Toulouse", 
+                logo: "Euro Dari", 
+                search: "Rechercher un produit...", 
+                all: "Tous", 
+                soda: "Boissons Gazeuses", 
+                food: "Produits Alimentaires", 
+                grocery: "Épicerie", 
+                nuts: "Noix" 
+            },
+            es: { 
+                dir: "ltr", 
+                phone: "📞 0758833766", 
+                address: "📍 9 place du Val d'Aran, Colomiers 31770 Toulouse", 
+                logo: "Euro Dari", 
+                search: "Buscar un producto...", 
+                all: "Todos", 
+                soda: "Bebidas Gaseosas", 
+                food: "Alimentos", 
+                grocery: "Abarrotes", 
+                nuts: "Frutos Secos" 
+            }
+        };
 
-const WA_MESSAGES = {
-  fr: (name, price) => `Bonjour Euro Dari, je souhaite commander : ${name} — ${price}. Merci.`,
-  es: (name, price) => `Hola Euro Dari, quiero pedir: ${name} — ${price}. Gracias.`,
-  ar: (name, price) => `مرحباً Euro Dari، أريد طلب: ${name} — ${price}. شكراً.`
-};
+        // --- دالة تغيير اللغة ---
+        function changeLanguage(lang) {
+            document.documentElement.dir = translations[lang].dir;
+            document.getElementById('phone-display').innerText = translations[lang].phone;
+            document.getElementById('address-display').innerText = translations[lang].address;
+            document.getElementById('site-logo').innerText = translations[lang].logo;
+            document.getElementById('search-input').placeholder = translations[lang].search;
+            
+            document.getElementById('cat-all').innerText = translations[lang].all;
+            document.getElementById('cat-soda').innerText = translations[lang].soda;
+            document.getElementById('cat-food').innerText = translations[lang].food;
+            document.getElementById('cat-grocery').innerText = translations[lang].grocery;
+            document.getElementById('cat-nuts').innerText = translations[lang].nuts;
 
-const translations = {
-  fr: {
-    heroTitle: "Des saveurs <em>authentiques</em> pour votre bien-être",
-    heroSub: "Fruits secs, boissons sans alcool et produits alimentaires de qualité, sélectionnés avec soin.",
-    heroBtn: "Découvrir nos produits",
-    catTitle: "Nos Catégories",
-    catSub: "Trois univers pour mieux manger chaque jour",
-    cat1: "Fruits Secs", cat1desc: "Amandes, noix, noisettes et bien plus.",
-    cat2: "Boissons Sans Alcool", cat2desc: "Jus naturels, thés, cafés et infusions.",
-    cat3: "Produits Alimentaires", cat3desc: "Huiles, miels et épices choisies.",
-    prodTitle: "Nos Meilleures Ventes",
-    prodSub: "Une sélection de produits sains et savoureux",
-    tagNuts: "Fruits secs", tagDrink: "Sans alcool", tagFood: "Alimentaire",
-    p1: "Amandes Grillées", p2: "Noix de Cajou", p3: "Noisettes Mélangées",
-    p4: "Jus d'Orange Naturel", p5: "Thé Vert Bio", p6: "Café Arabica",
-    p7: "Miel de Montagne", p8: "Huile d'Olive Vierge", p9: "Épices Mélangées",
-    waBtn: "Commander sur WhatsApp",
-    aboutTitle: "À propos de Euro Dari",
-    aboutText: "Euro Dari sélectionne le meilleur de la nature : des produits sains, savoureux et soigneusement choisis pour accompagner votre alimentation au quotidien.",
-    contactTitle: "Coordonnées",
-    phoneLabel: "Téléphone :",
-    siteLabel: "Site web :",
-    addressLabel: "Adresse :",
-    address: "France - Toulouse",
-    footer: "Tous droits réservés"
-  },
-  es: {
-    heroTitle: "Sabores <em>auténticos</em> para tu bienestar",
-    heroSub: "Frutos secos, bebidas sin alcohol y productos alimenticios de calidad, seleccionados con cuidado.",
-    heroBtn: "Descubrir productos",
-    catTitle: "Nuestras Categorías",
-    catSub: "Tres universos para comer mejor cada día",
-    cat1: "Frutos Secos", cat1desc: "Almendras, nueces, avellanas y más.",
-    cat2: "Bebidas Sin Alcohol", cat2desc: "Zumos naturales, tés, cafés e infusiones.",
-    cat3: "Productos Alimenticios", cat3desc: "Aceites, mieles y especias selectas.",
-    prodTitle: "Los Más Vendidos",
-    prodSub: "Una selección de productos sanos y sabrosos",
-    tagNuts: "Frutos secos", tagDrink: "Sin alcohol", tagFood: "Alimentación",
-    p1: "Almendras Tostadas", p2: "Anacardos", p3: "Avellanas Mixtas",
-    p4: "Zumo de Naranja Natural", p5: "Té Verde Bio", p6: "Café Arábica",
-    p7: "Miel de Montaña", p8: "Aceite de Oliva Virgen", p9: "Especias Mixtas",
-    waBtn: "Pedir por WhatsApp",
-    aboutTitle: "Sobre Euro Dari",
-    aboutText: "Euro Dari selecciona lo mejor de la naturaleza: productos sanos, sabrosos y cuidadosamente elegidos para acompañar tu alimentación diaria.",
-    contactTitle: "Información de Contacto",
-    phoneLabel: "Teléfono:",
-    siteLabel: "Sitio web:",
-    addressLabel: "Dirección:",
-    address: "Francia - Toulouse",
-    footer: "Todos los derechos reservados"
-  },
-  ar: {
-    heroTitle: "نكهات <em>أصيلة</em> من أجل صحتك",
-    heroSub: "مكسرات، مشروبات بدون كحول ومواد غذائية عالية الجودة، مختارة بعناية.",
-    heroBtn: "اكتشف منتجاتنا",
-    catTitle: "فئاتنا",
-    catSub: "ثلاثة عوالم لتغذية أفضل كل يوم",
-    cat1: "المكسرات", cat1desc: "لوز، جوز، بندق وأكثر.",
-    cat2: "مشروبات بدون كحول", cat2desc: "عصائر طبيعية، شاي، قهوة وأعشاب.",
-    cat3: "المواد الغذائية", cat3desc: "زيوت، عسل وتوابل مختارة.",
-    prodTitle: "الأكثر مبيعاً",
-    prodSub: "تشكيلة من المنتجات الصحية واللذيذة",
-    tagNuts: "مكسرات", tagDrink: "بدون كحول", tagFood: "غذائي",
-    p1: "لوز محمص", p2: "كاجو", p3: "بندق مشكل",
-    p4: "عصير برتقال طبيعي", p5: "شاي أخضر عضوي", p6: "قهوة أرابيكا",
-    p7: "عسل جبلي", p8: "زيت زيتون بكر", p9: "توابل مشكلة",
-    waBtn: "اطلب عبر واتساب",
-    aboutTitle: "عن Euro Dari",
-    aboutText: "Euro Dari تختار لكم أفضل ما في الطبيعة: منتجات صحية ولذيذة ومختارة بعناية لترافق تغذيتكم اليومية.",
-    contactTitle: "معلومات الاتصال",
-    phoneLabel: "الهاتف:",
-    siteLabel: "الموقع:",
-    addressLabel: "العنوان:",
-    address: "فرنسا - تولوز",
-    footer: "جميع الحقوق محفوظة"
-  }
-};
+            document.querySelectorAll('.languages a').forEach(a => a.classList.remove('active'));
+            document.getElementById('lang-' + lang).classList.add('active');
+        }
 
-const WA_ICON = '<svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.4.7 4.6 2 6.5L4 29l7.7-2c1.8 1 3.9 1.5 6.3 1.5 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-2 0-3.8-.6-5.4-1.6l-.4-.2-4.6 1.2 1.2-4.5-.2-.4C5.6 18.6 5 16.8 5 15c0-6.1 4.9-11 11-11s11 4.9 11 11-4.9 11-11 11zm6-8.2c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.6-1.6-.9-.8-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.4-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.4c.2.2 2.4 3.7 5.9 5.1 3.5 1.4 3.5.9 4.1.9.6-.1 1.9-.8 2.2-1.6.3-.8.3-1.4.2-1.6-.1-.2-.3-.3-.6-.5z"/></svg>';
+        // --- دالة عرض المنتجات ---
+        function renderProducts(categoryFilter = 'all') {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
 
-const langButtons = document.querySelectorAll('.lang-switch button');
-const grid = document.getElementById('productsGrid');
-let currentLang = 'fr';
+            const filtered = categoryFilter === 'all' ? products : products.filter(p => p.category === categoryFilter);
 
-function renderProducts(lang){
-  grid.innerHTML = '';
-  PRODUCTS.forEach(p => {
-    const name = translations[lang][p.key];
-    const msg = encodeURIComponent(WA_MESSAGES[lang](name, p.price));
-    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-    const card = document.createElement('div');
-    card.className = 'product';
-    card.innerHTML = `
-      <div class="product-img" style="background-image:url('${p.img}')"></div>
-      <div class="product-info">
-        <span class="tag">${translations[lang][p.tag]}</span>
-        <h4>${name}</h4>
-        <span class="price">${p.price}</span>
-        <a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">
-          ${WA_ICON} ${translations[lang].waBtn}
-        </a>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.img}" alt="${product.name}">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">${product.price}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
 
-function setLanguage(lang){
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if(translations[lang][key]) el.innerHTML = translations[lang][key];
-  });
-  langButtons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-  renderProducts(lang);
-}
+        // --- تفعيل أزرار الفئات ---
+        document.querySelectorAll('.brand-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.brand-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                renderProducts(e.target.getAttribute('data-category'));
+            });
+        });
 
-langButtons.forEach(btn => {
-  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
-});
-
-setLanguage('fr');
-</script>
-
+        // تشغيل العرض الأولي
+        renderProducts();
+    </script>
 </body>
 </html>
