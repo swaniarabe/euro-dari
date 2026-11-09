@@ -1,17 +1,47 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Euro Dari - يورو داري</title>
+    <title>Euro Dari</title>
     <style>
         /* التصميم العام */
-        * { box-sizing: border-box; font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
         body { background-color: #f8f9fa; color: #333; }
         
         /* الشريط العلوي */
-        .top-bar { background-color: #1a6a5b; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 14px; gap: 10px; }
-        .info-display { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .top-bar { 
+            background-color: #1a6a5b; 
+            color: white; 
+            padding: 10px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            font-size: 14px; 
+            gap: 10px; 
+        }
+        
+        .info-display { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            flex-wrap: wrap; 
+            font-weight: bold;
+            order: 1; 
+        }
+
+        /* الحل هنا: إجبار العنوان والهاتف على القراءة من اليسار لليمين */
+        #phone-display, #address-display {
+            direction: ltr;
+            unicode-bidi: embed;
+            display: inline-block;
+        }
+        
+        .languages { 
+            order: 2; 
+        }
+        
         .languages a { color: white; text-decoration: none; margin: 0 8px; cursor: pointer; }
         .languages a.active { font-weight: bold; color: #ffd700; }
 
@@ -19,8 +49,8 @@
         .main-header { background-color: white; padding: 20px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { color: #d94825; font-size: 32px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
         .search-bar { display: flex; width: 100%; max-width: 600px; }
-        .search-bar input { flex: 1; padding: 12px 15px; border: 2px solid #1a6a5b; border-radius: 0 5px 5px 0; outline: none; font-size: 16px; }
-        .search-bar button { padding: 12px 25px; background-color: #1a6a5b; color: white; border: none; border-radius: 5px 0 0 5px; cursor: pointer; font-size: 18px; }
+        .search-bar input { flex: 1; padding: 12px 15px; border: 2px solid #1a6a5b; border-radius: 5px 0 0 5px; outline: none; font-size: 16px; }
+        .search-bar button { padding: 12px 25px; background-color: #1a6a5b; color: white; border: none; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 18px; }
 
         /* شريط الفئات */
         .brands-bar { background-color: white; padding: 15px 20px; display: flex; gap: 15px; overflow-x: auto; border-bottom: 1px solid #eee; }
@@ -30,130 +60,103 @@
         /* شبكة المنتجات */
         .main-content { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
+        
+        /* بطاقة المنتج */
         .product-card { background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .product-card img { max-width: 100%; height: 180px; object-fit: contain; margin-bottom: 15px; }
+        .product-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 15px; } 
         .product-name { font-size: 16px; font-weight: bold; margin-bottom: 10px; color: #333; min-height: 40px; }
         .product-price { font-size: 20px; font-weight: bold; color: #d94825; }
         
-        /* تحسينات للهاتف */
-        @media (max-width: 600px) {
-            .top-bar { flex-direction: column; text-align: center; }
-            .info-display { justify-content: center; flex-direction: column; gap: 5px; }
+        /* تعديلات الهواتف */
+        @media (max-width: 768px) {
+            .top-bar { 
+                flex-direction: column; 
+                text-align: center; 
+                padding: 15px 10px;
+            }
+            .info-display { 
+                flex-direction: column; 
+                gap: 8px; 
+                font-size: 15px;
+                width: 100%;
+            }
+            .languages { 
+                margin-top: 10px; 
+                border-top: 1px solid rgba(255,255,255,0.3); 
+                padding-top: 10px; 
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- الشريط العلوي: الهاتف، العنوان، واللغات -->
     <div class="top-bar">
         <div class="info-display">
             <span id="phone-display">📞 0758833766</span>
             <span>|</span>
+            <!-- تأكدت من كتابة العنوان بالترتيب الصحيح هنا أيضاً -->
             <span id="address-display">📍 9 place du Val d'Aran, Colomiers 31770 Toulouse</span>
         </div>
         <div class="languages">
-            <a href="#" onclick="changeLanguage('ar')" id="lang-ar" class="active">العربية</a> | 
-            <a href="#" onclick="changeLanguage('fr')" id="lang-fr">Français</a> | 
+            <a href="#" onclick="changeLanguage('fr')" id="lang-fr" class="active">Français</a> | 
+            <a href="#" onclick="changeLanguage('ar')" id="lang-ar">العربية</a> | 
             <a href="#" onclick="changeLanguage('es')" id="lang-es">Español</a>
         </div>
     </div>
 
-    <!-- الهيدر -->
     <header class="main-header">
-        <div class="logo" id="site-logo">Euro Dari</div>
+        <div class="logo">Euro Dari</div>
         <div class="search-bar">
-            <input type="text" id="search-input" placeholder="ابحث عن منتج...">
-            <button id="search-btn">🔍</button>
+            <input type="text" id="search-input" placeholder="Rechercher un produit..." onkeyup="searchProducts()">
+            <button>🔍</button>
         </div>
     </header>
 
-    <!-- أزرار الفئات -->
     <div class="brands-bar">
-        <button class="brand-btn active" data-category="all" id="cat-all">الكل</button>
-        <button class="brand-btn" data-category="soda" id="cat-soda">🥤 مشروبات غازية</button>
-        <button class="brand-btn" data-category="food" id="cat-food">🥫 مواد غذائية</button>
-        <button class="brand-btn" data-category="grocery" id="cat-grocery">🛒 بقالة</button>
-        <button class="brand-btn" data-category="nuts" id="cat-nuts">🥜 مكسرات</button>
+        <button class="brand-btn active" data-category="all" id="cat-all">Tous</button>
+        <button class="brand-btn" data-category="soda" id="cat-soda">Boissons Gazeuses</button>
+        <button class="brand-btn" data-category="food" id="cat-food">Produits Alimentaires</button>
+        <button class="brand-btn" data-category="grocery" id="cat-grocery">Épicerie</button>
+        <button class="brand-btn" data-category="nuts" id="cat-nuts">Noix</button>
     </div>
 
-    <!-- عرض المنتجات -->
     <main class="main-content">
         <div class="products-grid" id="products-container"></div>
     </main>
 
     <script>
-        // --- قاعدة بيانات المنتجات ---
+        let currentLang = 'fr'; 
+        let currentCategory = 'all';
+
         const products = [
-            // 1. المشروبات الغازية
-            { id: 1, category: "soda", name: "مشروب غازي كولا 1.5 لتر", price: "12.00 €", img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=300&q=80" },
-            { id: 2, category: "soda", name: "مشروب غازي برتقال 1 لتر", price: "10.00 €", img: "https://images.unsplash.com/photo-1624517452488-04869289c4ca?auto=format&fit=crop&w=300&q=80" },
-            { id: 3, category: "soda", name: "مشروب غازي ليمون 1.5 لتر", price: "11.00 €", img: "https://images.unsplash.com/photo-1620148455563-3c1b932d58c8?auto=format&fit=crop&w=300&q=80" },
-
-            // 2. المواد الغذائية
-            { id: 4, category: "food", name: "معكرونة سباغيتي 500 غرام", price: "8.00 €", img: "https://images.unsplash.com/photo-1626844131082-256783844137?auto=format&fit=crop&w=300&q=80" },
-            { id: 5, category: "food", name: "زيت زيتون بكر ممتاز 1 لتر", price: "85.00 €", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80" },
-            { id: 6, category: "food", name: "تونة معلبة 200 غرام", price: "15.00 €", img: "https://images.unsplash.com/photo-1628271224014-46b9b134dbcd?auto=format&fit=crop&w=300&q=80" },
-
-            // 3. مواد البقالة
-            { id: 7, category: "grocery", name: "قهوة مطحونة 250 غرام", price: "35.00 €", img: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=300&q=80" },
-            { id: 8, category: "grocery", name: "شاي أخضر 200 غرام", price: "20.00 €", img: "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=300&q=80" },
-            { id: 9, category: "grocery", name: "سكر أبيض 1 كيلوغرام", price: "7.00 €", img: "https://images.unsplash.com/photo-1581609175585-927f8b6db91c?auto=format&fit=crop&w=300&q=80" },
-
-            // 4. المكسرات
-            { id: 10, category: "nuts", name: "لوز مقشر 500 غرام", price: "60.00 €", img: "https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=300&q=80" },
-            { id: 11, category: "nuts", name: "فستق حلبي 500 غرام", price: "75.00 €", img: "https://images.unsplash.com/photo-1596305733576-83e6b2275e34?auto=format&fit=crop&w=300&q=80" },
-            { id: 12, category: "nuts", name: "كاجو محمص 500 غرام", price: "80.00 €", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=300&q=80" }
+            { id: 1, category: "soda", price: "12.00 €", name: { ar: "مشروب غازي كولا 1.5 لتر", fr: "Boisson Gazeuse Cola 1.5L", es: "Bebida Gaseosa Cola 1.5L" }, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=300&q=80" },
+            { id: 2, category: "soda", price: "10.00 €", name: { ar: "مشروب غازي برتقال 1 لتر", fr: "Boisson Gazeuse Orange 1L", es: "Bebida Gaseosa Naranja 1L" }, img: "https://images.unsplash.com/photo-1624517452488-04869289c4ca?auto=format&fit=crop&w=300&q=80" },
+            { id: 3, category: "soda", price: "11.00 €", name: { ar: "مشروب غازي ليمون 1.5 لتر", fr: "Boisson Gazeuse Citron 1.5L", es: "Bebida Gaseosa Limón 1.5L" }, img: "https://images.unsplash.com/photo-1620148455563-3c1b932d58c8?auto=format&fit=crop&w=300&q=80" },
+            { id: 4, category: "food", price: "8.00 €", name: { ar: "معكرونة سباغيتي 500 غرام", fr: "Spaghetti 500g", es: "Espaguetis 500g" }, img: "https://images.unsplash.com/photo-1626844131082-256783844137?auto=format&fit=crop&w=300&q=80" },
+            { id: 5, category: "food", price: "85.00 €", name: { ar: "زيت زيتون بكر ممتاز 1 لتر", fr: "Huile d'olive extra vierge 1L", es: "Aceite de oliva virgen extra 1L" }, img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=300&q=80" },
+            { id: 6, category: "food", price: "15.00 €", name: { ar: "تونة معلبة 200 غرام", fr: "Thon en conserve 200g", es: "Atún en conserva 200g" }, img: "https://images.unsplash.com/photo-1628271224014-46b9b134dbcd?auto=format&fit=crop&w=300&q=80" },
+            { id: 7, category: "grocery", price: "35.00 €", name: { ar: "قهوة مطحونة 250 غرام", fr: "Café moulu 250g", es: "Café molido 250g" }, img: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=300&q=80" },
+            { id: 8, category: "grocery", price: "20.00 €", name: { ar: "شاي أخضر 200 غرام", fr: "Thé vert 200g", es: "Té verde 200g" }, img: "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=300&q=80" },
+            { id: 9, category: "grocery", price: "7.00 €", name: { ar: "سكر أبيض 1 كيلوغرام", fr: "Sucre blanc 1Kg", es: "Azúcar blanco 1Kg" }, img: "https://images.unsplash.com/photo-1581609175585-927f8b6db91c?auto=format&fit=crop&w=300&q=80" },
+            { id: 10, category: "nuts", price: "60.00 €", name: { ar: "لوز مقشر 500 غرام", fr: "Amandes émondées 500g", es: "Almendras peladas 500g" }, img: "https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=300&q=80" },
+            { id: 11, category: "nuts", price: "75.00 €", name: { ar: "فستق حلبي 500 غرام", fr: "Pistaches 500g", es: "Pistachos 500g" }, img: "https://images.unsplash.com/photo-1596305733576-83e6b2275e34?auto=format&fit=crop&w=300&q=80" },
+            { id: 12, category: "nuts", price: "80.00 €", name: { ar: "كاجو محمص 500 غرام", fr: "Noix de cajou grillées 500g", es: "Anacardos tostados 500g" }, img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=300&q=80" }
         ];
 
-        // --- الترجمات (تم تحديث الهاتف والعنوان فيها) ---
         const translations = {
-            ar: { 
-                dir: "rtl", 
-                phone: "📞 0758833766", 
-                address: "📍 9 place du Val d'Aran, Colomiers 31770 Toulouse", 
-                logo: "Euro Dari", 
-                search: "ابحث عن منتج...", 
-                all: "الكل", 
-                soda: "🥤 مشروبات غازية", 
-                food: "🥫 مواد غذائية", 
-                grocery: "🛒 بقالة", 
-                nuts: "🥜 مكسرات" 
-            },
-            fr: { 
-                dir: "ltr", 
-                phone: "📞 0758833766", 
-                address: "📍 9 place du Val d'Aran, Colomiers 31770 Toulouse", 
-                logo: "Euro Dari", 
-                search: "Rechercher un produit...", 
-                all: "Tous", 
-                soda: "Boissons Gazeuses", 
-                food: "Produits Alimentaires", 
-                grocery: "Épicerie", 
-                nuts: "Noix" 
-            },
-            es: { 
-                dir: "ltr", 
-                phone: "📞 0758833766", 
-                address: "📍 9 place du Val d'Aran, Colomiers 31770 Toulouse", 
-                logo: "Euro Dari", 
-                search: "Buscar un producto...", 
-                all: "Todos", 
-                soda: "Bebidas Gaseosas", 
-                food: "Alimentos", 
-                grocery: "Abarrotes", 
-                nuts: "Frutos Secos" 
-            }
+            ar: { dir: "rtl", search: "ابحث عن منتج...", all: "الكل", soda: "🥤 مشروبات غازية", food: "🥫 مواد غذائية", grocery: "🛒 بقالة", nuts: "🥜 مكسرات" },
+            fr: { dir: "ltr", search: "Rechercher un produit...", all: "Tous", soda: "Boissons Gazeuses", food: "Produits Alimentaires", grocery: "Épicerie", nuts: "Noix" },
+            es: { dir: "ltr", search: "Buscar un producto...", all: "Todos", soda: "Bebidas Gaseosas", food: "Alimentos", grocery: "Abarrotes", nuts: "Frutos Secos" }
         };
 
-        // --- دالة تغيير اللغة ---
         function changeLanguage(lang) {
+            currentLang = lang;
             document.documentElement.dir = translations[lang].dir;
-            document.getElementById('phone-display').innerText = translations[lang].phone;
-            document.getElementById('address-display').innerText = translations[lang].address;
-            document.getElementById('site-logo').innerText = translations[lang].logo;
-            document.getElementById('search-input').placeholder = translations[lang].search;
+            document.documentElement.lang = lang;
             
+            document.getElementById('search-input').placeholder = translations[lang].search;
             document.getElementById('cat-all').innerText = translations[lang].all;
             document.getElementById('cat-soda').innerText = translations[lang].soda;
             document.getElementById('cat-food').innerText = translations[lang].food;
@@ -162,37 +165,59 @@
 
             document.querySelectorAll('.languages a').forEach(a => a.classList.remove('active'));
             document.getElementById('lang-' + lang).classList.add('active');
+
+            renderProducts();
         }
 
-        // --- دالة عرض المنتجات ---
-        function renderProducts(categoryFilter = 'all') {
+        function renderProducts() {
             const container = document.getElementById('products-container');
             container.innerHTML = '';
-
-            const filtered = categoryFilter === 'all' ? products : products.filter(p => p.category === categoryFilter);
+            let filtered = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
 
             filtered.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <img src="${product.img}" alt="${product.name}">
-                    <div class="product-name">${product.name}</div>
+                    <img src="${product.img}" alt="${product.name[currentLang]}">
+                    <div class="product-name">${product.name[currentLang]}</div>
                     <div class="product-price">${product.price}</div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        // --- تفعيل أزرار الفئات ---
+        function searchProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+
+            const filtered = products.filter(p => 
+                p.name[currentLang].toLowerCase().includes(query) || 
+                p.name['fr'].toLowerCase().includes(query) || 
+                p.name['ar'].includes(query)
+            );
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${product.img}" alt="${product.name[currentLang]}">
+                    <div class="product-name">${product.name[currentLang]}</div>
+                    <div class="product-price">${product.price}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
         document.querySelectorAll('.brand-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.brand-btn').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
-                renderProducts(e.target.getAttribute('data-category'));
+                currentCategory = e.target.getAttribute('data-category');
+                renderProducts();
             });
         });
 
-        // تشغيل العرض الأولي
         renderProducts();
     </script>
 </body>
