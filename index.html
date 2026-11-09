@@ -77,8 +77,8 @@
 
     <div class="top-bar">
         <div class="info-display">
-            <!-- تم تحديث رقم الهاتف هنا -->
-            <span id="phone-display">📞 0750037162</span>
+            <!-- 1. الرقم المعروض للزوار في الواجهة (الرقم السابق) -->
+            <span id="phone-display">📞 0758833766</span>
             <span id="address-display">📍 9 place du Val d'Aran, Colomiers 31770 Toulouse</span>
         </div>
         <div class="languages">
@@ -151,7 +151,7 @@
             { id: 20, category: "rice", price: "25.00 €", name: { ar: "أرز بسمتي 1 كيلوغرام", fr: "Riz Basmati 1Kg", es: "Arroz Basmati 1Kg" }, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80" },
             { id: 21, category: "rice", price: "20.00 €", name: { ar: "أرز طويل الحبة 1 كيلوغرام", fr: "Riz long grain 1Kg", es: "Arroz de grano largo 1Kg" }, img: "https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=300&q=80" },
             { id: 22, category: "legumes", price: "12.00 €", name: { ar: "عدس أخضر 500 غرام", fr: "Lentilles vertes 500g", es: "Lentejas verdes 500g" }, img: "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?auto=format&fit=crop&w=300&q=80" },
-            { id: 23, category: "legumes", price: "14.00 €", name: { ar: "حمص حب 500 غرام", fr: "Pois chiches 500g", es: "Garbanzos 500g" }, img: "https://images.unsplash.com/photo-1590005354167-6da97870c757?auto=format&fit=crop&w=300&q=80" },
+            { id: 23, category: "legumes", price: "14.00 €", name: { ar: "حمص حب 500 غرام", fr: "Pois chiches 500g", es: "Garbanzos 500g" }, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Chickpea_BNC.jpg/320px-Chickpea_BNC.jpg" },
             { id: 24, category: "legumes", price: "15.00 €", name: { ar: "فاصوليا بيضاء 500 غرام", fr: "Haricots blancs 500g", es: "Judías blancas 500g" }, img: "https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&w=300&q=80" },
             { id: 10, category: "nuts", price: "60.00 €", name: { ar: "لوز مقشر 500 غرام", fr: "Amandes émondées 500g", es: "Almendras peladas 500g" }, img: "https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=300&q=80" },
             { id: 11, category: "nuts", price: "75.00 €", name: { ar: "فستق حلبي 500 غرام", fr: "Pistaches 500g", es: "Pistachos 500g" }, img: "https://images.unsplash.com/photo-1596305733576-83e6b2275e34?auto=format&fit=crop&w=300&q=80" },
@@ -335,7 +335,7 @@
             message += `\n💰 *المجموع الإجمالي: ${total.toFixed(2)} €*`;
             message += `\n\n📍 يرجى إرسال العنوان ورقم الهاتف لتأكيد الطلب.`;
 
-            // *** تم تحديث الرقم هنا ***
+            // 2. الرقم المخفي الذي ستستقبل عليه أنت الطلبات (رقم الواتساب الجديد)
             const phoneNumber = "33750037162"; 
 
             const encodedMessage = encodeURIComponent(message);
@@ -348,4 +348,4 @@
         updateCartUI();
     </script>
 </body>
-</html>        
+</html>
