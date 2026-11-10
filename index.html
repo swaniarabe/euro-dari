@@ -5,65 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Euro Dari - Commandez via WhatsApp</title>
     <style>
-        /* التصميم العام */
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
         body { background-color: #f8f9fa; color: #333; padding-bottom: 80px; }
-        
-        /* الشريط العلوي */
         .top-bar { background-color: #1a6a5b; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 14px; gap: 15px; }
         .info-display { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; font-weight: bold; order: 1; }
         #phone-display, #address-display { direction: ltr; unicode-bidi: embed; display: inline-block; }
-        
-        /* شارة التوصيل المجاني */
-        .delivery-badge { 
-            display: inline-block; 
-            background-color: rgba(255, 215, 0, 0.15); 
-            border: 1px solid #ffd700; 
-            color: #ffd700; 
-            padding: 4px 10px; 
-            border-radius: 20px; 
-            font-size: 13px; 
-            font-weight: bold;
-        }
-
+        .delivery-badge { display: inline-block; background-color: rgba(255, 215, 0, 0.15); border: 1px solid #ffd700; color: #ffd700; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; }
         .languages { order: 2; }
         .languages a { color: white; text-decoration: none; margin: 0 8px; cursor: pointer; }
         .languages a.active { font-weight: bold; color: #ffd700; }
-
-        /* الهيدر واللوغو */
         .main-header { background-color: white; padding: 20px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { color: #d94825; font-size: 32px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
         .search-bar { display: flex; width: 100%; max-width: 600px; }
         .search-bar input { flex: 1; padding: 12px 15px; border: 2px solid #1a6a5b; border-radius: 5px 0 0 5px; outline: none; font-size: 16px; }
         .search-bar button { padding: 12px 25px; background-color: #1a6a5b; color: white; border: none; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 18px; }
-
-        /* شريط الفئات */
         .brands-bar { background-color: white; padding: 15px 20px; display: flex; gap: 15px; overflow-x: auto; border-bottom: 1px solid #eee; -webkit-overflow-scrolling: touch; }
         .brands-bar::-webkit-scrollbar { height: 5px; }
         .brands-bar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
         .brand-btn { padding: 10px 20px; background-color: #f1f1f1; border: 1px solid #ddd; border-radius: 25px; cursor: pointer; font-size: 15px; font-weight: bold; white-space: nowrap; transition: 0.3s; }
         .brand-btn:hover, .brand-btn.active { background-color: #1a6a5b; color: white; border-color: #1a6a5b; }
-
-        /* شبكة المنتجات */
         .main-content { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
-        
-        /* بطاقة المنتج */
         .product-card { background: white; border: 1px solid #e0e0e0; border-radius: 10px; padding: 20px; text-align: center; transition: transform 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .product-card img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px; } 
         .product-name { font-size: 16px; font-weight: bold; margin-bottom: 10px; color: #333; min-height: 40px; }
         .product-price { font-size: 20px; font-weight: bold; color: #d94825; margin-bottom: 15px; }
-        
-        /* زر أضف للسلة */
         .add-to-cart-btn { background-color: #1a6a5b; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
         .add-to-cart-btn:hover { background-color: #134a3f; }
-
-        /* السلة العائمة */
         .floating-cart { position: fixed; bottom: 20px; right: 20px; background-color: #d94825; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100; }
         .cart-count { position: absolute; top: -5px; right: -5px; background-color: #333; color: white; font-size: 14px; font-weight: bold; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
-
-        /* نافذة السلة (Modal) */
         .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
         .cart-content { background: white; width: 90%; max-width: 500px; border-radius: 10px; padding: 20px; max-height: 90vh; display: flex; flex-direction: column; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
@@ -76,15 +47,11 @@
         .cart-item-actions { display: flex; align-items: center; gap: 10px; }
         .qty-btn { background: #eee; border: none; width: 25px; height: 25px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .cart-total { font-size: 18px; font-weight: bold; text-align: right; border-top: 2px solid #333; padding-top: 15px; margin-bottom: 15px; }
-        
-        /* حقول إدخال بيانات الزبون */
         .customer-info { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         .customer-info input { padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 15px; outline: none; font-family: inherit; }
         .customer-info input:focus { border-color: #1a6a5b; box-shadow: 0 0 5px rgba(26,106,91,0.3); }
-
         .checkout-btn { background-color: #25D366; color: white; border: none; padding: 15px; border-radius: 5px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; }
         .checkout-btn:hover { background-color: #128C7E; }
-
         @media (max-width: 768px) {
             .top-bar { flex-direction: column; text-align: center; padding: 15px 10px; }
             .info-display { flex-direction: column; gap: 8px; font-size: 15px; width: 100%; }
@@ -98,7 +65,6 @@
         <div class="info-display">
             <span id="phone-display">📞 0758833766</span>
             <span id="address-display">📍 9 place du Val d'Aran, Colomiers 31770 Toulouse</span>
-            <!-- شارة التوصيل المجاني -->
             <span id="delivery-info" class="delivery-badge">🚚 Livraison gratuite selon la quantité</span>
         </div>
         <div class="languages">
@@ -131,13 +97,10 @@
         <div class="products-grid" id="products-container"></div>
     </main>
 
-    <!-- أيقونة السلة العائمة -->
     <div class="floating-cart" onclick="toggleCart()">
-        🛒
-        <span class="cart-count" id="cart-count">0</span>
+        🛒 <span class="cart-count" id="cart-count">0</span>
     </div>
 
-    <!-- نافذة السلة -->
     <div class="cart-modal" id="cart-modal">
         <div class="cart-content">
             <div class="cart-header">
@@ -147,7 +110,6 @@
             <div class="cart-items" id="cart-items-container"></div>
             <div class="cart-total" id="cart-total-price">Total: 0.00 €</div>
             
-            <!-- حقول بيانات الزبون -->
             <div class="customer-info">
                 <input type="text" id="customer-name" placeholder="الاسم الكامل / Nom complet" required>
                 <input type="tel" id="customer-phone" placeholder="رقم الهاتف / Numéro de téléphone" required>
@@ -163,46 +125,34 @@
         let currentLang = 'fr'; 
         let currentCategory = 'all';
         let cart = []; 
-
         const WHATSAPP_NUMBER = "33758833766"; 
 
+        // ⚠️ تم وضع روابط صور جاهزة من الإنترنت (بدون الحاجة لرفع أي شيء)
         const products = [
-            { id: 101, category: "soda", price: 1.50, name: { ar: "شويبس إنديان تونيك", fr: "Schweppes Indian Tonic", es: "Schweppes Indian Tonic" }, img: "https://i.ibb.co/6P9Z4xN/schweppes.jpg" },
-            { id: 102, category: "soda", price: 2.00, name: { ar: "ريد بُل مشروب طاقة", fr: "Red Bull Energy Drink", es: "Red Bull Energy Drink" }, img: "https://i.ibb.co/3sVq9xG/redbull.jpg" },
-            { id: 103, category: "soda", price: 1.80, name: { ar: "أوازيس تفاح توت بري", fr: "Oasis Pomme Cassis Framboise", es: "Oasis Manzana Grosella" }, img: "https://i.ibb.co/1K5VbYq/oasis-rouge.jpg" },
-            { id: 104, category: "soda", price: 1.80, name: { ar: "أوازيس استوائي", fr: "Oasis Tropical", es: "Oasis Tropical" }, img: "https://i.ibb.co/5W1W5N3/oasis-orange.jpg" },
-            { id: 105, category: "soda", price: 3.50, name: { ar: "كابري سان استوائي (علبة)", fr: "Capri-Sun Tropical (Pack)", es: "Capri-Sun Tropical (Pack)" }, img: "https://i.ibb.co/0yY7zW6/caprisun.jpg" },
-            { id: 106, category: "soda", price: 1.80, name: { ar: "فانتا مانجو وتنين", fr: "Fanta Mango Fruit du Dragon", es: "Fanta Mango Dragón" }, img: "https://i.ibb.co/JqX1zY8/fanta.jpg" },
-            { id: 107, category: "soda", price: 1.80, name: { ar: "أوازيس تفاح وإجاص", fr: "Oasis Pomme Poire", es: "Oasis Manzana Pera" }, img: "https://i.ibb.co/2M9z3Xk/oasis-verte.jpg" },
-            { id: 108, category: "soda", price: 12.00, name: { ar: "بيرييه مياه غازية (24 قارورة)", fr: "Perrier 24x33cl", es: "Perrier 24x33cl" }, img: "https://i.ibb.co/4T2W4kH/perrier.jpg" },
-            { id: 109, category: "soda", price: 0.50, name: { ar: "مياه كريستالين", fr: "Eau Cristaline", es: "Agua Cristaline" }, img: "https://i.ibb.co/L5t3Y7B/cristaline.jpg" },
-            { id: 4, category: "food", price: 8.00, name: { ar: "معكرونة سباغيتي 500 غرام", fr: "Spaghetti 500g", es: "Espaguetis 500g" }, img: "https://images.unsplash.com/photo-1626844131082-256783844137?auto=format&fit=crop&w=300&q=80" },
-            { id: 7, category: "grocery", price: 35.00, name: { ar: "قهوة مطحونة 250 غرام", fr: "Café moulu 250g", es: "Café molido 250g" }, img: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=300&q=80" },
-            { id: 20, category: "rice", price: 25.00, name: { ar: "أرز بسمتي 1 كيلوغرام", fr: "Riz Basmati 1Kg", es: "Arroz Basmati 1Kg" }, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=300&q=80" },
-            { id: 10, category: "nuts", price: 60.00, name: { ar: "لوز مقشر 500 غرام", fr: "Amandes émondées 500g", es: "Almendras peladas 500g" }, img: "https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=300&q=80" }
+            { id: 101, category: "soda", price: 1.50, name: { ar: "شويبس إنديان تونيك", fr: "Schweppes Indian Tonic", es: "Schweppes Indian Tonic" }, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=300" },
+            { id: 102, category: "soda", price: 2.00, name: { ar: "ريد بُل مشروب طاقة", fr: "Red Bull Energy Drink", es: "Red Bull Energy Drink" }, img: "https://images.unsplash.com/photo-1610135172078-1f26e5b04f82?w=300" },
+            { id: 103, category: "soda", price: 1.80, name: { ar: "أوازيس تفاح توت بري", fr: "Oasis Pomme Cassis Framboise", es: "Oasis Manzana Grosella" }, img: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=300" },
+            { id: 104, category: "soda", price: 1.80, name: { ar: "أوازيس استوائي", fr: "Oasis Tropical", es: "Oasis Tropical" }, img: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=300" },
+            { id: 105, category: "soda", price: 3.50, name: { ar: "كابري سان استوائي", fr: "Capri-Sun Tropical", es: "Capri-Sun Tropical" }, img: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=300" },
+            { id: 106, category: "soda", price: 1.80, name: { ar: "فانتا مانجو وتنين", fr: "Fanta Mango Fruit du Dragon", es: "Fanta Mango Dragón" }, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=300" },
+            { id: 107, category: "soda", price: 1.80, name: { ar: "أوازيس تفاح وإجاص", fr: "Oasis Pomme Poire", es: "Oasis Manzana Pera" }, img: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=300" },
+            { id: 108, category: "soda", price: 12.00, name: { ar: "بيرييه مياه غازية", fr: "Perrier 24x33cl", es: "Perrier 24x33cl" }, img: "https://images.unsplash.com/photo-1610135172078-1f26e5b04f82?w=300" },
+            { id: 109, category: "soda", price: 0.50, name: { ar: "مياه كريستالين", fr: "Eau Cristaline", es: "Agua Cristaline" }, img: "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=300" },
+            { id: 4, category: "food", price: 8.00, name: { ar: "معكرونة سباغيتي", fr: "Spaghetti 500g", es: "Espaguetis 500g" }, img: "https://images.unsplash.com/photo-1626844131082-256783844137?w=300" },
+            { id: 7, category: "grocery", price: 35.00, name: { ar: "قهوة مطحونة", fr: "Café moulu 250g", es: "Café molido 250g" }, img: "https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=300" },
+            { id: 20, category: "rice", price: 25.00, name: { ar: "أرز بسمتي", fr: "Riz Basmati 1Kg", es: "Arroz Basmati 1Kg" }, img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300" },
+            { id: 10, category: "nuts", price: 60.00, name: { ar: "لوز مقشر", fr: "Amandes émondées 500g", es: "Almendras peladas 500g" }, img: "https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=300" }
         ];
 
         const translations = {
-            ar: { 
-                dir: "rtl", search: "ابحث عن منتج...", all: "الكل", soda: "🥤 مشروبات غازية", food: "🥫 مواد غذائية", grocery: "🛒 بقالة", rice: "🍚 أرز", legumes: "🌾 بقوليات", nuts: "🥜 مكسرات", spices: "🌶️ توابل", addToCart: "أضف إلى السلة", cartTitle: "سلة المشتريات", total: "المجموع", checkout: "اطلب عبر واتساب", emptyCart: "السلة فارغة حالياً",
-                delivery: "🚚 التوصيل مجاني حسب الكمية"
-            },
-            fr: { 
-                dir: "ltr", search: "Rechercher un produit...", all: "Tous", soda: "Boissons Gazeuses", food: "Produits Alimentaires", grocery: "Épicerie", rice: "Riz", legumes: "Légumes Secs", nuts: "Noix", spices: "Épices", addToCart: "Ajouter au panier", cartTitle: "Votre Panier", total: "Total", checkout: "Commander via WhatsApp", emptyCart: "Votre panier est vide",
-                delivery: "🚚 Livraison gratuite selon la quantité"
-            },
-            es: { 
-                dir: "ltr", search: "Buscar un producto...", all: "Todos", soda: "Bebidas Gaseosas", food: "Alimentos", grocery: "Abarrotes", rice: "Arroz", legumes: "Legumbres", nuts: "Frutos Secos", spices: "Especias", addToCart: "Añadir al carrito", cartTitle: "Tu Carrito", total: "Total", checkout: "Pedir por WhatsApp", emptyCart: "Tu carrito está vacío",
-                delivery: "🚚 Envío gratis según la cantidad"
-            }
+            ar: { dir: "rtl", search: "ابحث عن منتج...", all: "الكل", soda: "🥤 مشروبات غازية", food: "🥫 مواد غذائية", grocery: "🛒 بقالة", rice: "🍚 أرز", legumes: "🌾 بقوليات", nuts: "🥜 مكسرات", spices: "🌶️ توابل", addToCart: "أضف إلى السلة", cartTitle: "سلة المشتريات", total: "المجموع", checkout: "اطلب عبر واتساب", emptyCart: "السلة فارغة حالياً", delivery: "🚚 التوصيل مجاني حسب الكمية" },
+            fr: { dir: "ltr", search: "Rechercher un produit...", all: "Tous", soda: "Boissons Gazeuses", food: "Produits Alimentaires", grocery: "Épicerie", rice: "Riz", legumes: "Légumes Secs", nuts: "Noix", spices: "Épices", addToCart: "Ajouter au panier", cartTitle: "Votre Panier", total: "Total", checkout: "Commander via WhatsApp", emptyCart: "Votre panier est vide", delivery: "🚚 Livraison gratuite selon la quantité" },
+            es: { dir: "ltr", search: "Buscar un producto...", all: "Todos", soda: "Bebidas Gaseosas", food: "Alimentos", grocery: "Abarrotes", rice: "Arroz", legumes: "Legumbres", nuts: "Frutos Secos", spices: "Especias", addToCart: "Añadir al carrito", cartTitle: "Tu Carrito", total: "Total", checkout: "Pedir por WhatsApp", emptyCart: "Tu carrito está vacío", delivery: "🚚 Envío gratis según la cantidad" }
         };
 
         function changeLanguage(lang) {
             currentLang = lang;
             document.documentElement.dir = translations[lang].dir;
-            document.documentElement.lang = lang;
-            
-            // تحديث نصوص الشريط العلوي
             document.getElementById('delivery-info').innerText = translations[lang].delivery;
             document.getElementById('search-input').placeholder = translations[lang].search;
             document.getElementById('cat-all').innerText = translations[lang].all;
@@ -213,13 +163,11 @@
             document.getElementById('cat-legumes').innerText = translations[lang].legumes;
             document.getElementById('cat-nuts').innerText = translations[lang].nuts;
             document.getElementById('cat-spices').innerText = translations[lang].spices;
-            
             document.getElementById('cart-title-text').innerText = translations[lang].cartTitle;
             document.getElementById('checkout-text').innerText = translations[lang].checkout;
 
             document.querySelectorAll('.languages a').forEach(a => a.classList.remove('active'));
             document.getElementById('lang-' + lang).classList.add('active');
-
             renderProducts();
             updateCartUI();
         }
@@ -228,40 +176,27 @@
             const container = document.getElementById('products-container');
             container.innerHTML = '';
             let filtered = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
-
-            filtered.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                const productName = product.name[currentLang];
-                
-                card.innerHTML = `
-                    <img src="${product.img}" alt="${productName}">
-                    <div class="product-name">${productName}</div>
-                    <div class="product-price">${product.price.toFixed(2)} €</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(${product.id})">${translations[currentLang].addToCart}</button>
-                `;
-                container.appendChild(card);
-            });
+            displayProducts(filtered);
         }
 
         function searchProducts() {
             const query = document.getElementById('search-input').value.toLowerCase();
-            const container = document.getElementById('products-container');
-            container.innerHTML = '';
-
             let baseProducts = currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory);
-
             const filtered = baseProducts.filter(p => 
                 p.name[currentLang].toLowerCase().includes(query) || 
                 p.name['fr'].toLowerCase().includes(query) || 
                 p.name['ar'].includes(query)
             );
+            displayProducts(filtered);
+        }
 
-            filtered.forEach(product => {
+        function displayProducts(list) {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+            list.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 const productName = product.name[currentLang];
-                
                 card.innerHTML = `
                     <img src="${product.img}" alt="${productName}">
                     <div class="product-name">${productName}</div>
@@ -285,7 +220,6 @@
         function addToCart(id) {
             const product = products.find(p => p.id === id);
             const existingItem = cart.find(item => item.id === id);
-
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
@@ -312,41 +246,36 @@
 
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartCount.innerText = totalItems;
-
             cartItemsContainer.innerHTML = '';
+
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `<p style="text-align:center; color:#888; padding: 20px 0;">${translations[currentLang].emptyCart}</p>`;
+                cartItemsContainer.innerHTML = `<p style="text-align:center; padding:20px; color:#888;">${translations[currentLang].emptyCart}</p>`;
             } else {
                 cart.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'cart-item';
-                    div.innerHTML = `
+                    const row = document.createElement('div');
+                    row.className = 'cart-item';
+                    row.innerHTML = `
                         <div class="cart-item-info">
                             <div class="cart-item-title">${item.name[currentLang]}</div>
-                            <div class="cart-item-price">${item.price.toFixed(2)} €</div>
+                            <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} €</div>
                         </div>
                         <div class="cart-item-actions">
-                            <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                            <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">−</button>
                             <span>${item.quantity}</span>
                             <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
                         </div>
                     `;
-                    cartItemsContainer.appendChild(div);
+                    cartItemsContainer.appendChild(row);
                 });
             }
 
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            cartTotalPrice.innerText = `${translations[currentLang].total}: ${totalPrice.toFixed(2)} €`;
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalPrice.innerText = `${translations[currentLang].total}: ${total.toFixed(2)} €`;
         }
 
         function toggleCart() {
             const modal = document.getElementById('cart-modal');
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            } else {
-                modal.style.display = 'flex';
-                updateCartUI(); 
-            }
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
         }
 
         function orderViaWhatsApp() {
@@ -354,37 +283,28 @@
                 alert(translations[currentLang].emptyCart);
                 return;
             }
+            const name = document.getElementById('customer-name').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
 
-            const customerName = document.getElementById('customer-name').value.trim();
-            const customerPhone = document.getElementById('customer-phone').value.trim();
-
-            if (!customerName || !customerPhone) {
-                alert("الرجاء إدخال الاسم ورقم الهاتف قبل تأكيد الطلب.\nVeuillez entrer votre nom et numéro de téléphone.");
+            if (!name || !phone) {
+                alert(currentLang === 'ar' ? 'يرجى إدخال الاسم ورقم الهاتف' : currentLang === 'fr' ? 'Veuillez entrer votre nom et téléphone' : 'Por favor ingrese su nombre y teléfono');
                 return;
             }
 
-            let message = "مرحباً، أود طلب المنتجات التالية من Euro Dari:\n\n";
-            message += `👤 الاسم (Nom) : ${customerName}\n`;
-            message += `📞 الهاتف (Tél) : ${customerPhone}\n`;
-            message += "-----------------------------------\n";
-            
-            let total = 0;
-
+            let message = `🛒 *Nouvelle commande - Euro Dari*\n\n`;
+            message += `👤 *Client:* ${name}\n`;
+            message += `📞 *Téléphone:* ${phone}\n\n`;
+            message += `📦 *Produits:*\n`;
             cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                message += `- ${item.name['fr']} (x${item.quantity}) : ${itemTotal.toFixed(2)} €\n`;
+                message += `• ${item.name.fr} × ${item.quantity} = ${(item.price * item.quantity).toFixed(2)} €\n`;
             });
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `\n💰 *TOTAL: ${total.toFixed(2)} €*`;
 
-            message += `\nالمجموع الإجمالي (Total) : ${total.toFixed(2)} €`;
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
         }
 
-        // التهيئة الأولية
         renderProducts();
         updateCartUI();
     </script>
