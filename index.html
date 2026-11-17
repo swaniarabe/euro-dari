@@ -1,358 +1,466 @@
-<!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Euro Dari - المتجر</title>
+    <title>Euro Dari - متجر المنتجات المغربية</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; }
-        h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+        /* إعدادات عامة وهندسة الموقع */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; color: #333; }
+        
+        /* الشريط العلوي (اللغات + السلة) */
+        .top-nav { background-color: #2c3e50; color: white; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+        .languages { display: flex; gap: 15px; }
+        .languages span { cursor: pointer; font-size: 14px; font-weight: bold; }
+        .languages span:hover { color: #f1c40f; }
+        .cart { font-size: 18px; font-weight: bold; cursor: pointer; }
+        
+        /* معلومات الاتصال والعنوان */
+        .contact-bar { background-color: #ecf0f1; text-align: center; padding: 10px; font-size: 14px; color: #555; border-bottom: 1px solid #ddd; }
+        .contact-bar span { margin: 0 15px; display: inline-block; }
+        
+        /* عنوان المتجر */
+        .store-header { text-align: center; padding: 30px 20px; background: white; border-bottom: 1px solid #ddd; }
+        .store-header h1 { color: #27ae60; font-size: 32px; margin-bottom: 5px; }
+        .store-header p { color: #7f8c8d; font-size: 16px; }
+
+        /* شبكة المنتجات */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        
+        /* بطاقة المنتج */
         .product-card {
             background: white;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             padding: 15px;
             text-align: center;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            border: 1px solid #eee;
         }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .product-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 15px; background: #fff; border-radius: 5px; }
-        .product-card h3 { font-size: 16px; margin: 10px 0; color: #333; line-height: 1.4; }
+        .product-card h3 { font-size: 16px; margin: 10px 0; color: #2c3e50; line-height: 1.4; }
         .product-card .barcode { background: #e9ecef; padding: 6px; border-radius: 4px; font-family: monospace; font-size: 13px; color: #495057; margin-bottom: 10px; }
-        .product-card .price { color: #27ae60; font-weight: bold; font-size: 20px; margin-top: auto; }
+        .product-card .price { color: #e67e22; font-weight: bold; font-size: 20px; margin-bottom: 10px; }
+        
+        /* زر إضافة للسلة */
+        .add-to-cart { background: #27ae60; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background 0.2s; width: 100%; }
+        .add-to-cart:hover { background: #219150; }
+
+        /* تذييل الصفحة */
+        footer { text-align: center; padding: 20px; background: #2c3e50; color: white; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <h1>منتجات Euro Dari</h1>
-
-    <div class="products-grid">
-
-        <!-- 1. سميد ميمونة -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/semoule_maymouna_5kg.jpg.jpg" alt="Semoule Maymouna">
-            <h3>سميد ميمونة 5 كغ</h3>
-            <div class="barcode">كود: 6111245710051</div>
-            <div class="price">€ 7.50</div>
+    <!-- الشريط العلوي: اللغات والسلة -->
+    <div class="top-nav">
+        <div class="languages">
+            <span onclick="alert('تم اختيار اللغة العربية')">🇲🇦 العربية</span>
+            <span onclick="alert('Langue Française sélectionnée')">🇫🇷 Français</span>
+            <span onclick="alert('Idioma Español seleccionado')">🇪🇸 Español</span>
         </div>
-
-        <!-- 2. سميد ميمونة (نوع 2) -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/semoule_maymouna.5kg.jpg.jpg" alt="Semoule Maymouna 2">
-            <h3>سميد ميمونة 5 كغ (ناعم)</h3>
-            <div class="barcode">كود: 6111245710099</div>
-            <div class="price">€ 7.50</div>
-        </div>
-
-        <!-- 3. دشيشة ناعمة -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_fin.jpg.jpg" alt="Dchicha Fin">
-            <h3>دشيشة ناعمة</h3>
-            <div class="barcode">كود: TDCH001</div>
-            <div class="price">€ 2.50</div>
-        </div>
-
-        <!-- 4. دشيشة متوسطة -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_moyan.jpg.jpg" alt="Dchicha Moyan">
-            <h3>دشيشة متوسطة</h3>
-            <div class="barcode">كود: TDCH002</div>
-            <div class="price">€ 2.50</div>
-        </div>
-
-        <!-- 5. دشيشة خشينة -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_gros.jpg.jpg" alt="Dchicha Gros">
-            <h3>دشيشة خشينة</h3>
-            <div class="barcode">كود: TDCH003</div>
-            <div class="price">€ 2.50</div>
-        </div>
-
-        <!-- 6. بلبولة الشعير -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/albelboula_d'orge_1kg.jpg.jpg" alt="Belboula Orge">
-            <h3>بلبولة الشعير 1 كغ</h3>
-            <div class="barcode">كود: LBO001</div>
-            <div class="price">€ 2.00</div>
-        </div>
-
-        <!-- 7. كسكس داري -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/couscous_dari1kg.jpg.jpg" alt="Couscous Dari">
-            <h3>كسكس داري 1 كغ</h3>
-            <div class="barcode">كود: 6111094000228</div>
-            <div class="price">€ 2.50</div>
-        </div>
-
-        <!-- 8. كسكس داري كامل -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/couscous_dari_complet.jpg.jpg" alt="Couscous Dari Complet">
-            <h3>كسكس داري كامل</h3>
-            <div class="barcode">كود: 6111094000594</div>
-            <div class="price">€ 2.80</div>
-        </div>
-
-        <!-- 9. حمص 1 كغ -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pois_chiches1kg.jpg.jpg" alt="Pois Chiches 1kg">
-            <h3>حمص 1 كغ</h3>
-            <div class="barcode">كود: 6111250470551</div>
-            <div class="price">€ 2.20</div>
-        </div>
-
-        <!-- 10. حمص -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pois_chiches.jpg.jpg" alt="Pois Chiches">
-            <h3>حمص</h3>
-            <div class="barcode">كود: 6111250470551</div>
-            <div class="price">€ 2.00</div>
-        </div>
-
-        <!-- 11. عدس -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/lentille.jpg.jpg" alt="Lentille">
-            <h3>عدس</h3>
-            <div class="barcode">كود: -</div>
-            <div class="price">€ 2.00</div>
-        </div>
-
-        <!-- 12. عدس أحمر -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/lentille_rouge.jpg.jpg" alt="Lentille Rouge">
-            <h3>عدس أحمر</h3>
-            <div class="barcode">كود: 6111258281708</div>
-            <div class="price">€ 2.50</div>
-        </div>
-
-        <!-- 13. كاوكاو محمر -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/cacahu%C3%A8te_grill%C3%A9e.jpg%20.jpg" alt="Cacahuete Grillee">
-            <h3>كاوكاو محمر (فول سوداني)</h3>
-            <div class="barcode">كود: -</div>
-            <div class="price">€ 3.00</div>
-        </div>
-
-        <!-- 14. كاوكاو نيء -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/arachides_crues.jpg.jpg" alt="Arachides Crues">
-            <h3>كاوكاو نيء</h3>
-            <div class="barcode">كود: 3276650120611</div>
-            <div class="price">€ 2.50</div>
-        </div>
-
-        <!-- 15. تين يابس -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_s%C3%A9che.jpg.jpg" alt="Figue Seche">
-            <h3>تين يابس</h3>
-            <div class="barcode">كود: 8420678000331</div>
-            <div class="price">€ 4.50</div>
-        </div>
-
-        <!-- 16. تين إسباني -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_espagnole.jpg.jpg" alt="Figue Espagnole">
-            <h3>تين إسباني</h3>
-            <div class="barcode">كود: 5420036416395</div>
-            <div class="price">€ 5.00</div>
-        </div>
-
-        <!-- 17. تين إسباني (2) -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_espagnole.jpg%20.jpg" alt="Figue Espagnole 2">
-            <h3>تين إسباني (عبوة أخرى)</h3>
-            <div class="barcode">كود: 5420036416395</div>
-            <div class="price">€ 5.00</div>
-        </div>
-
-        <!-- 18. فستق -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pistach.jpg.jpg" alt="Pistach">
-            <h3>فستق</h3>
-            <div class="barcode">كود: 6111251272932</div>
-            <div class="price">€ 8.00</div>
-        </div>
-
-        <!-- 19. فواكه مجففة مختلطة -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/fruits%20m%C3%A9langer.jpg.jpg" alt="Fruits Melanges">
-            <h3>فواكه مجففة مختلطة</h3>
-            <div class="barcode">كود: 6111249099466</div>
-            <div class="price">€ 4.00</div>
-        </div>
-
-        <!-- 20. جوز بدون قشر -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_sans_coques.jpg.jpg" alt="Noix Sans Coques">
-            <h3>جوز (عين الجمل) بدون قشر</h3>
-            <div class="barcode">كود: 6133577000013</div>
-            <div class="price">€ 7.00</div>
-        </div>
-
-        <!-- 21. جوز -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix.jpg.jpg" alt="Noix">
-            <h3>جوز</h3>
-            <div class="barcode">كود: 6111250476430</div>
-            <div class="price">€ 6.00</div>
-        </div>
-
-        <!-- 22. جوز برازيلي -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_du_Br%C3%A9sil.jpg.jpg" alt="Noix du Bresil">
-            <h3>جوز برازيلي</h3>
-            <div class="barcode">كود: 7337259663429</div>
-            <div class="price">€ 5.50</div>
-        </div>
-
-        <!-- 23. كاجو -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_de_cajou.jpg.jpg" alt="Noix de Cajou">
-            <h3>كاجو (Noix de Cajou)</h3>
-            <div class="barcode">كود: 6133577000037</div>
-            <div class="price">€ 6.50</div>
-        </div>
-
-        <!-- 24. عصير Hawaii (تفاح) -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Hawa%C3%AF_poms.jpg.jpg" alt="Hawaii Poms">
-            <h3>عصير Hawaii تفاح</h3>
-            <div class="barcode">كود: -</div>
-            <div class="price">€ 1.20</div>
-        </div>
-
-        <!-- 25. عصير Hawaii (كانيط) -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Hawa%C3%AF_canette.jpg.jpg" alt="Hawaii Canette">
-            <h3>عصير Hawaii (كانيط)</h3>
-            <div class="barcode">كود: 5449000025272</div>
-            <div class="price">€ 1.00</div>
-        </div>
-
-        <!-- 26. ليبتون خوخ -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Lipton_p%C3%AAche.jpg.jpg" alt="Lipton Peche">
-            <h3>شاي مثلج ليبتون بالخوخ</h3>
-            <div class="barcode">كود: 6111252422411</div>
-            <div class="price">€ 1.50</div>
-        </div>
-
-        <!-- 27. كوكا كولا بدون سكر -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/coca_cola_sans_sucres.jpg.jpg" alt="Coca Cola Sans Sucres">
-            <h3>كوكا كولا بدون سكر</h3>
-            <div class="barcode">كود: 5449000133335</div>
-            <div class="price">€ 1.80</div>
-        </div>
-
-        <!-- 28. كوكا كولا 1.5 لتر -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/coca1%2C5l.jpg.jpg" alt="Coca Cola 1.5L">
-            <h3>كوكا كولا 1.5 لتر</h3>
-            <div class="barcode">كود: 5449000000996</div>
-            <div class="price">€ 1.80</div>
-        </div>
-
-        <!-- 29. عصير Oasis 2 لتر -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/oisis_2l.jpg.jpg" alt="Oasis 2L">
-            <h3>عصير Oasis 2 لتر</h3>
-            <div class="barcode">كود: 3124480156860</div>
-            <div class="price">€ 2.00</div>
-        </div>
-
-        <!-- 30. شاي Taj 250غ -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9_taj2.50gr.jpg.jpg" alt="The Taj 250g">
-            <h3>شاي Taj 250 غرام</h3>
-            <div class="barcode">كود: 3558824360208</div>
-            <div class="price">€ 3.50</div>
-        </div>
-
-        <!-- 31. شاي Magmer 200غ -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9_magmer2.00gr.jpg.jpg" alt="The Magmer 200g">
-            <h3>شاي Magmer 200 غرام</h3>
-            <div class="barcode">كود: 3700607000126</div>
-            <div class="price">€ 3.00</div>
-        </div>
-
-        <!-- 32. شاي Sidi Lala 200غ -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9%20_sidi_lala2.00gr.jpg.jpg" alt="The Sidi Lala 200g">
-            <h3>شاي Sidi Lala 200 غرام</h3>
-            <div class="barcode">كود: 3700607000706</div>
-            <div class="price">€ 3.00</div>
-        </div>
-
-        <!-- 33. صورة غير معروفة (IMG) -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/IMG_20261110_224921.jpg" alt="Produit Divers">
-            <h3>منتج متنوع (قم بتغيير الاسم)</h3>
-            <div class="barcode">كود: -</div>
-            <div class="price">€ 0.00</div>
-        </div>
-
-        <!-- 34. جوزة الطيب -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_muscade.jpg%20.jpg" alt="Noix Muscade">
-            <h3>جوزة الطيب</h3>
-            <div class="barcode">كود: 6132205200443</div>
-            <div class="price">€ 1.50</div>
-        </div>
-
-        <!-- 35. زبدة الفول السوداني -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/p%C3%A2te_arachid.jpg.jpg" alt="Pate Arachide">
-            <h3>زبدة الفول السوداني</h3>
-            <div class="barcode">كود: 8198701234564</div>
-            <div class="price">€ 3.00</div>
-        </div>
-
-        <!-- 36. أرز بسمتي -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/riz_basmati.jpg.jpg" alt="Riz Basmati">
-            <h3>أرز بسمتي</h3>
-            <div class="barcode">كود: 6111242548503</div>
-            <div class="price">€ 3.50</div>
-        </div>
-
-        <!-- 37. Rostoy 1L -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/rostoy_1l.jpg.jpg" alt="Rostoy 1L">
-            <h3>عصير Rostoy 1 لتر</h3>
-            <div class="barcode">كود: 8410261775098</div>
-            <div class="price">€ 1.50</div>
-        </div>
-
-        <!-- 38. Simon 1.5L -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Simon1.5l.jpg.jpg" alt="Simon 1.5L">
-            <h3>عصير Simon 1.5 لتر</h3>
-            <div class="barcode">كود: 8410261641423</div>
-            <div class="price">€ 2.00</div>
-        </div>
-
-        <!-- 39. دقيق كامل 10 كغ -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/farine%20_compl%C3%A8te10kg.jpg.jpg" alt="Farine Complete 10kg">
-            <h3>دقيق كامل 10 كغ</h3>
-            <div class="barcode">كود: 6111012300065</div>
-            <div class="price">€ 10.00</div>
-        </div>
-
-        <!-- 40. أرز مكسر 20 كغ -->
-        <div class="product-card">
-            <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/riz_cass%C3%A920kg.jpg.jpg" alt="Riz Casse 20kg">
-            <h3>أرز مكسر 20 كغ</h3>
-            <div class="barcode">كود: 2000000036397</div>
-            <div class="price">€ 22.00</div>
-        </div>
-
+        <div class="cart">🛒 السلة (<span id="cart-count">0</span>)</div>
     </div>
 
+    <!-- معلومات الاتصال -->
+    <div class="contact-bar">
+        <span>📍 العنوان: شارع المغرب، الحي الصناعي (قم بتغييره لاحقاً)</span>
+        <span>📞 الهاتف: 06 00 00 00 00 (قم بتغييره لاحقاً)</span>
+    </div>
+
+    <!-- عنوان المتجر -->
+    <div class="store-header">
+        <h1>Euro Dari</h1>
+        <p>أفضل المنتجات المغربية والعالمية بأفضل الأثمنة</p>
+    </div>
+
+    <!-- حاوية المنتجات -->
+    <div class="container">
+        <div class="products-grid">
+
+            <!-- 1. سميد ميمونة -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/semoule_maymouna_5kg.jpg.jpg" alt="Semoule Maymouna">
+                <h3>سميد ميمونة 5 كغ</h3>
+                <div class="barcode">كود: 6111245710051</div>
+                <div class="price">€ 7.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 2. سميد ميمونة 2 -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/semoule_maymouna.5kg.jpg.jpg" alt="Semoule Maymouna 2">
+                <h3>سميد ميمونة 5 كغ (ناعم)</h3>
+                <div class="barcode">كود: 6111245710099</div>
+                <div class="price">€ 7.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 3. دشيشة ناعمة -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_fin.jpg.jpg" alt="Dchicha Fin">
+                <h3>دشيشة ناعمة</h3>
+                <div class="barcode">كود: TDCH001</div>
+                <div class="price">€ 2.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 4. دشيشة متوسطة -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_moyan.jpg.jpg" alt="Dchicha Moyan">
+                <h3>دشيشة متوسطة</h3>
+                <div class="barcode">كود: TDCH002</div>
+                <div class="price">€ 2.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 5. دشيشة خشينة -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_gros.jpg.jpg" alt="Dchicha Gros">
+                <h3>دشيشة خشينة</h3>
+                <div class="barcode">كود: TDCH003</div>
+                <div class="price">€ 2.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 6. بلبولة الشعير -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/albelboula_d'orge_1kg.jpg.jpg" alt="Belboula Orge">
+                <h3>بلبولة الشعير 1 كغ</h3>
+                <div class="barcode">كود: LBO001</div>
+                <div class="price">€ 2.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 7. كسكس داري -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/couscous_dari1kg.jpg.jpg" alt="Couscous Dari">
+                <h3>كسكس داري 1 كغ</h3>
+                <div class="barcode">كود: 6111094000228</div>
+                <div class="price">€ 2.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 8. كسكس داري كامل -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/couscous_dari_complet.jpg.jpg" alt="Couscous Dari Complet">
+                <h3>كسكس داري كامل</h3>
+                <div class="barcode">كود: 6111094000594</div>
+                <div class="price">€ 2.80</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 9. حمص 1 كغ -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pois_chiches1kg.jpg.jpg" alt="Pois Chiches 1kg">
+                <h3>حمص 1 كغ</h3>
+                <div class="barcode">كود: 6111250470551</div>
+                <div class="price">€ 2.20</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 10. حمص -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pois_chiches.jpg.jpg" alt="Pois Chiches">
+                <h3>حمص</h3>
+                <div class="barcode">كود: 6111250470551</div>
+                <div class="price">€ 2.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 11. عدس -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/lentille.jpg.jpg" alt="Lentille">
+                <h3>عدس</h3>
+                <div class="barcode">كود: -</div>
+                <div class="price">€ 2.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 12. عدس أحمر -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/lentille_rouge.jpg.jpg" alt="Lentille Rouge">
+                <h3>عدس أحمر</h3>
+                <div class="barcode">كود: 6111258281708</div>
+                <div class="price">€ 2.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 13. كاوكاو محمر -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/cacahu%C3%A8te_grill%C3%A9e.jpg%20.jpg" alt="Cacahuete Grillee">
+                <h3>كاوكاو محمر</h3>
+                <div class="barcode">كود: -</div>
+                <div class="price">€ 3.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 14. كاوكاو نيء -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/arachides_crues.jpg.jpg" alt="Arachides Crues">
+                <h3>كاوكاو نيء</h3>
+                <div class="barcode">كود: 3276650120611</div>
+                <div class="price">€ 2.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 15. تين يابس -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_s%C3%A9che.jpg.jpg" alt="Figue Seche">
+                <h3>تين يابس</h3>
+                <div class="barcode">كود: 8420678000331</div>
+                <div class="price">€ 4.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 16. تين إسباني -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_espagnole.jpg.jpg" alt="Figue Espagnole">
+                <h3>تين إسباني</h3>
+                <div class="barcode">كود: 5420036416395</div>
+                <div class="price">€ 5.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 17. تين إسباني 2 -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_espagnole.jpg%20.jpg" alt="Figue Espagnole 2">
+                <h3>تين إسباني (عبوة أخرى)</h3>
+                <div class="barcode">كود: 5420036416395</div>
+                <div class="price">€ 5.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 18. فستق -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pistach.jpg.jpg" alt="Pistach">
+                <h3>فستق</h3>
+                <div class="barcode">كود: 6111251272932</div>
+                <div class="price">€ 8.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 19. فواكه مجففة -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/fruits%20m%C3%A9langer.jpg.jpg" alt="Fruits Melanges">
+                <h3>فواكه مجففة مختلطة</h3>
+                <div class="barcode">كود: 6111249099466</div>
+                <div class="price">€ 4.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 20. جوز بدون قشر -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_sans_coques.jpg.jpg" alt="Noix Sans Coques">
+                <h3>جوز بدون قشر</h3>
+                <div class="barcode">كود: 6133577000013</div>
+                <div class="price">€ 7.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 21. جوز -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix.jpg.jpg" alt="Noix">
+                <h3>جوز</h3>
+                <div class="barcode">كود: 6111250476430</div>
+                <div class="price">€ 6.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 22. جوز برازيلي -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_du_Br%C3%A9sil.jpg.jpg" alt="Noix du Bresil">
+                <h3>جوز برازيلي</h3>
+                <div class="barcode">كود: 7337259663429</div>
+                <div class="price">€ 5.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 23. كاجو -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_de_cajou.jpg.jpg" alt="Noix de Cajou">
+                <h3>كاجو</h3>
+                <div class="barcode">كود: 6133577000037</div>
+                <div class="price">€ 6.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 24. Hawaii تفاح -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Hawa%C3%AF_poms.jpg.jpg" alt="Hawaii Poms">
+                <h3>عصير Hawaii تفاح</h3>
+                <div class="barcode">كود: -</div>
+                <div class="price">€ 1.20</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 25. Hawaii كانيط -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Hawa%C3%AF_canette.jpg.jpg" alt="Hawaii Canette">
+                <h3>عصير Hawaii (كانيط)</h3>
+                <div class="barcode">كود: 5449000025272</div>
+                <div class="price">€ 1.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 26. ليبتون -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Lipton_p%C3%AAche.jpg.jpg" alt="Lipton Peche">
+                <h3>شاي مثلج ليبتون بالخوخ</h3>
+                <div class="barcode">كود: 6111252422411</div>
+                <div class="price">€ 1.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 27. كوكا بدون سكر -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/coca_cola_sans_sucres.jpg.jpg" alt="Coca Cola Sans Sucres">
+                <h3>كوكا كولا بدون سكر</h3>
+                <div class="barcode">كود: 5449000133335</div>
+                <div class="price">€ 1.80</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 28. كوكا 1.5 لتر -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/coca1%2C5l.jpg.jpg" alt="Coca Cola 1.5L">
+                <h3>كوكا كولا 1.5 لتر</h3>
+                <div class="barcode">كود: 5449000000996</div>
+                <div class="price">€ 1.80</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 29. Oasis -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/oisis_2l.jpg.jpg" alt="Oasis 2L">
+                <h3>عصير Oasis 2 لتر</h3>
+                <div class="barcode">كود: 3124480156860</div>
+                <div class="price">€ 2.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 30. شاي Taj -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9_taj2.50gr.jpg.jpg" alt="The Taj">
+                <h3>شاي Taj 250 غرام</h3>
+                <div class="barcode">كود: 3558824360208</div>
+                <div class="price">€ 3.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 31. شاي Magmer -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9_magmer2.00gr.jpg.jpg" alt="The Magmer">
+                <h3>شاي Magmer 200 غرام</h3>
+                <div class="barcode">كود: 3700607000126</div>
+                <div class="price">€ 3.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 32. شاي Sidi Lala -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9%20_sidi_lala2.00gr.jpg.jpg" alt="The Sidi Lala">
+                <h3>شاي Sidi Lala 200 غرام</h3>
+                <div class="barcode">كود: 3700607000706</div>
+                <div class="price">€ 3.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 33. صورة IMG -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/IMG_20261110_224921.jpg" alt="Produit Divers">
+                <h3>منتج متنوع (عدل الاسم)</h3>
+                <div class="barcode">كود: -</div>
+                <div class="price">€ 0.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 34. جوزة الطيب -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_muscade.jpg%20.jpg" alt="Noix Muscade">
+                <h3>جوزة الطيب</h3>
+                <div class="barcode">كود: 6132205200443</div>
+                <div class="price">€ 1.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 35. زبدة الفول السوداني -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/p%C3%A2te_arachid.jpg.jpg" alt="Pate Arachide">
+                <h3>زبدة الفول السوداني</h3>
+                <div class="barcode">كود: 8198701234564</div>
+                <div class="price">€ 3.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 36. أرز بسمتي -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/riz_basmati.jpg.jpg" alt="Riz Basmati">
+                <h3>أرز بسمتي</h3>
+                <div class="barcode">كود: 6111242548503</div>
+                <div class="price">€ 3.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 37. Rostoy -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/rostoy_1l.jpg.jpg" alt="Rostoy 1L">
+                <h3>عصير Rostoy 1 لتر</h3>
+                <div class="barcode">كود: 8410261775098</div>
+                <div class="price">€ 1.50</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 38. Simon -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Simon1.5l.jpg.jpg" alt="Simon 1.5L">
+                <h3>عصير Simon 1.5 لتر</h3>
+                <div class="barcode">كود: 8410261641423</div>
+                <div class="price">€ 2.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 39. دقيق كامل -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/farine%20_compl%C3%A8te10kg.jpg.jpg" alt="Farine Complete 10kg">
+                <h3>دقيق كامل 10 كغ</h3>
+                <div class="barcode">كود: 6111012300065</div>
+                <div class="price">€ 10.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+            <!-- 40. أرز مكسر -->
+            <div class="product-card">
+                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/riz_cass%C3%A920kg.jpg.jpg" alt="Riz Casse 20kg">
+                <h3>أرز مكسر 20 كغ</h3>
+                <div class="barcode">كود: 2000000036397</div>
+                <div class="price">€ 22.00</div>
+                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <p>© 2024 Euro Dari - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- كود الجافاسكريبت لتفعيل السلة (تأثير بصري فقط) -->
+    <script>
+        let cartItems = 0;
+        function addToCart() {
+            cartItems++;
+            document.getElementById('cart-count').innerText = cartItems;
+            alert('تمت إضافة المنتج إلى السلة!');
+        }
+    </script>
+
 </body>
-</html>
+</html>       
