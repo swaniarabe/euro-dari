@@ -1,466 +1,619 @@
-     <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Euro Dari - متجر المنتجات المغربية</title>
+    <!-- مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* إعدادات عامة وهندسة الموقع */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; color: #333; }
-        
-        /* الشريط العلوي (اللغات + السلة) */
-        .top-nav { background-color: #2c3e50; color: white; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-        .languages { display: flex; gap: 15px; }
-        .languages span { cursor: pointer; font-size: 14px; font-weight: bold; }
-        .languages span:hover { color: #f1c40f; }
-        .cart { font-size: 18px; font-weight: bold; cursor: pointer; }
-        
-        /* معلومات الاتصال والعنوان */
-        .contact-bar { background-color: #ecf0f1; text-align: center; padding: 10px; font-size: 14px; color: #555; border-bottom: 1px solid #ddd; }
-        .contact-bar span { margin: 0 15px; display: inline-block; }
-        
-        /* عنوان المتجر */
-        .store-header { text-align: center; padding: 30px 20px; background: white; border-bottom: 1px solid #ddd; }
-        .store-header h1 { color: #27ae60; font-size: 32px; margin-bottom: 5px; }
-        .store-header p { color: #7f8c8d; font-size: 16px; }
+        /* إعدادات عامة */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; color: #333; }
 
-        /* شبكة المنتجات */
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        /* 1. الشريط العلوي (Top Bar) */
+        .top-bar { background-color: #2c3e50; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 10px 40px; font-size: 14px; flex-wrap: wrap; gap: 10px;}
+        .languages { display: flex; gap: 15px; }
+        .languages span { cursor: pointer; font-weight: bold; transition: color 0.3s; }
+        .languages span:hover { color: #f1c40f; }
+        .contact-info { display: flex; gap: 20px; font-size: 14px; color: #ecf0f1; align-items: center;}
+        .contact-info .highlight { background-color: #f39c12; color: #fff; padding: 3px 10px; border-radius: 4px; font-weight: bold; }
+        .cart-btn { font-size: 16px; font-weight: bold; cursor: pointer; background: #1abc9c; padding: 8px 15px; border-radius: 20px; color: #fff; border: none; transition: background 0.3s; }
+        .cart-btn:hover { background: #16a085; }
+
+        /* 2. رأس الصفحة (Header) */
+        .main-header { background-color: #fff; padding: 20px 40px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logo-area h1 { font-size: 32px; font-weight: 800; color: #2c3e50; letter-spacing: 1px; }
+        .logo-area h1 span { color: #e74c3c; }
+        .search-box { position: relative; width: 300px; }
+        .search-box input { width: 100%; padding: 10px 40px 10px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; font-family: inherit; }
+        .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #7f8c8d; }
+
+        /* 3. شريط التنقل (Navigation) */
+        .navbar { display: flex; align-items: center; gap: 30px; border-top: 1px solid #eee; padding-top: 15px; }
+        .btn-categories { background-color: #1abc9c; color: #fff; border: none; padding: 12px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; font-family: inherit; font-size: 16px; }
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: #34495e; font-weight: 600; font-size: 16px; transition: color 0.3s; }
+        .nav-links a:hover { color: #1abc9c; }
+
+        /* 4. القسم الرئيسي (Hero Section) */
+        .hero-section { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: #fff; padding: 50px 40px; position: relative; }
+        .hero-breadcrumbs { font-size: 14px; margin-bottom: 15px; opacity: 0.8; }
+        .hero-section h2 { font-size: 36px; margin-bottom: 30px; font-weight: 700; }
+        .hero-filters { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .filter-pill { background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.4); color: #fff; padding: 10px 25px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: background 0.3s; }
+        .filter-pill:hover { background-color: rgba(255, 255, 255, 0.3); }
+
+        /* 5. شبكة المنتجات (Products Grid) */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
         
         /* بطاقة المنتج */
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid #eee;
-        }
+        .product-card { background: #fff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); padding: 15px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eee; }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .product-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 15px; background: #fff; border-radius: 5px; }
-        .product-card h3 { font-size: 16px; margin: 10px 0; color: #2c3e50; line-height: 1.4; }
-        .product-card .barcode { background: #e9ecef; padding: 6px; border-radius: 4px; font-family: monospace; font-size: 13px; color: #495057; margin-bottom: 10px; }
-        .product-card .price { color: #e67e22; font-weight: bold; font-size: 20px; margin-bottom: 10px; }
+        .product-card h3 { font-size: 16px; margin: 10px 0; color: #2c3e50; line-height: 1.4; min-height: 45px; }
+        .product-card .barcode { background: #e9ecef; padding: 6px; border-radius: 4px; font-family: monospace; font-size: 12px; color: #495057; margin-bottom: 10px; }
+        .product-card .price { color: #e67e22; font-weight: bold; font-size: 20px; margin-bottom: 15px; }
         
         /* زر إضافة للسلة */
-        .add-to-cart { background: #27ae60; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background 0.2s; width: 100%; }
-        .add-to-cart:hover { background: #219150; }
+        .add-to-cart { background: #1abc9c; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: background 0.2s; width: 100%; font-family: inherit; font-size: 15px; }
+        .add-to-cart:hover { background: #16a085; }
+
+        /* 6. نافذة السلة (Cart Modal) */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+        .modal-content { background-color: #fff; padding: 30px; border-radius: 10px; width: 90%; max-width: 500px; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; }
+        .close { position: absolute; top: 15px; left: 20px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer; }
+        .close:hover { color: #e74c3c; }
+        .modal-content h2 { margin-bottom: 20px; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        #cart-items-list { list-style: none; max-height: 200px; overflow-y: auto; margin-bottom: 20px; }
+        #cart-items-list li { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+        #cart-items-list li span { font-weight: bold; color: #e67e22; }
+        .total-price { font-size: 20px; font-weight: bold; text-align: left; margin-bottom: 20px; color: #2c3e50; border-top: 2px solid #eee; padding-top: 15px; }
+
+        /* 7. نموذج معلومات التوصيل */
+        .customer-form { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; margin-bottom: 20px; }
+        .customer-form h3 { font-size: 16px; margin-bottom: 15px; color: #2c3e50; display: flex; align-items: center; gap: 8px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; font-size: 14px; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #1abc9c; outline: none; }
+        .form-group textarea { resize: vertical; height: 70px; }
+        
+        /* زر واتساب */
+        .whatsapp-btn { background-color: #25D366; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: background 0.3s; font-family: inherit; }
+        .whatsapp-btn:hover { background-color: #128C7E; }
 
         /* تذييل الصفحة */
-        footer { text-align: center; padding: 20px; background: #2c3e50; color: white; margin-top: 40px; }
+        footer { text-align: center; padding: 30px; background: #2c3e50; color: white; margin-top: 50px; }
+        
+        /* تجاوب مع الهواتف */
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; padding: 15px; }
+            .header-content { flex-direction: column; gap: 15px; }
+            .navbar { flex-direction: column; gap: 15px; }
+            .hero-section h2 { font-size: 24px; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- الشريط العلوي: اللغات والسلة -->
-    <div class="top-nav">
+    <!-- الشريط العلوي -->
+    <div class="top-bar">
         <div class="languages">
             <span onclick="alert('تم اختيار اللغة العربية')">🇲🇦 العربية</span>
             <span onclick="alert('Langue Française sélectionnée')">🇫🇷 Français</span>
             <span onclick="alert('Idioma Español seleccionado')">🇪🇸 Español</span>
         </div>
-        <div class="cart">🛒 السلة (<span id="cart-count">0</span>)</div>
+        
+        <!-- معلومات الاتصال والجملة والتقسيط -->
+        <div class="contact-info">
+            <span class="highlight"><i class="fa-solid fa-bullhorn"></i> بيع بالجملة والتقسيط</span>
+            <span><i class="fa-solid fa-mobile-screen"></i> 0758833766</span>
+        </div>
+
+        <!-- زر السلة -->
+        <button class="cart-btn" onclick="openCart()">🛒 السلة (<span id="cart-count">0</span>)</button>
     </div>
 
-    <!-- معلومات الاتصال -->
-    <div class="contact-bar">
-        <span>📍 العنوان: شارع المغرب، الحي الصناعي (قم بتغييره لاحقاً)</span>
-        <span>📞 الهاتف: 06 00 00 00 00 (قم بتغييره لاحقاً)</span>
-    </div>
+    <!-- رأس الصفحة -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <h1>Euro <span>Dari</span></h1>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="ابحث عن منتج...">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        
+        <!-- شريط التنقل -->
+        <nav class="navbar">
+            <button class="btn-categories"><i class="fa-solid fa-bars"></i> كل الفئات</button>
+            <ul class="nav-links">
+                <li><a href="#"><i class="fa-solid fa-store"></i> المتجر</a></li>
+                <li><a href="#"><i class="fa-solid fa-leaf"></i> منتجات طازجة</a></li>
+                <li><a href="#"><i class="fa-regular fa-snowflake"></i> مجمدات</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- عنوان المتجر -->
-    <div class="store-header">
-        <h1>Euro Dari</h1>
-        <p>أفضل المنتجات المغربية والعالمية بأفضل الأثمنة</p>
-    </div>
+    <!-- القسم الرئيسي -->
+    <section class="hero-section">
+        <div class="hero-breadcrumbs">الرئيسية &gt; المتجر &gt; المنتجات المغربية</div>
+        <h2>مورد المنتجات المغربية والعالمية</h2>
+        <div class="hero-filters">
+            <a href="#" class="filter-pill">أساسيات الكسكس</a>
+            <a href="#" class="filter-pill">المكسرات والفواكه المجففة</a>
+            <a href="#" class="filter-pill">المشروبات</a>
+        </div>
+    </section>
 
     <!-- حاوية المنتجات -->
     <div class="container">
         <div class="products-grid">
 
-            <!-- 1. سميد ميمونة -->
+            <!-- المنتج 1 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/semoule_maymouna_5kg.jpg.jpg" alt="Semoule Maymouna">
                 <h3>سميد ميمونة 5 كغ</h3>
                 <div class="barcode">كود: 6111245710051</div>
                 <div class="price">€ 7.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 2. سميد ميمونة 2 -->
+            <!-- المنتج 2 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/semoule_maymouna.5kg.jpg.jpg" alt="Semoule Maymouna 2">
                 <h3>سميد ميمونة 5 كغ (ناعم)</h3>
                 <div class="barcode">كود: 6111245710099</div>
                 <div class="price">€ 7.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 3. دشيشة ناعمة -->
+            <!-- المنتج 3 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_fin.jpg.jpg" alt="Dchicha Fin">
                 <h3>دشيشة ناعمة</h3>
                 <div class="barcode">كود: TDCH001</div>
                 <div class="price">€ 2.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 4. دشيشة متوسطة -->
+            <!-- المنتج 4 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_moyan.jpg.jpg" alt="Dchicha Moyan">
                 <h3>دشيشة متوسطة</h3>
                 <div class="barcode">كود: TDCH002</div>
                 <div class="price">€ 2.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 5. دشيشة خشينة -->
+            <!-- المنتج 5 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/dchicha_gros.jpg.jpg" alt="Dchicha Gros">
                 <h3>دشيشة خشينة</h3>
                 <div class="barcode">كود: TDCH003</div>
                 <div class="price">€ 2.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 6. بلبولة الشعير -->
+            <!-- المنتج 6 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/albelboula_d'orge_1kg.jpg.jpg" alt="Belboula Orge">
                 <h3>بلبولة الشعير 1 كغ</h3>
                 <div class="barcode">كود: LBO001</div>
                 <div class="price">€ 2.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 7. كسكس داري -->
+            <!-- المنتج 7 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/couscous_dari1kg.jpg.jpg" alt="Couscous Dari">
                 <h3>كسكس داري 1 كغ</h3>
                 <div class="barcode">كود: 6111094000228</div>
                 <div class="price">€ 2.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 8. كسكس داري كامل -->
+            <!-- المنتج 8 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/couscous_dari_complet.jpg.jpg" alt="Couscous Dari Complet">
                 <h3>كسكس داري كامل</h3>
                 <div class="barcode">كود: 6111094000594</div>
                 <div class="price">€ 2.80</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 9. حمص 1 كغ -->
+            <!-- المنتج 9 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pois_chiches1kg.jpg.jpg" alt="Pois Chiches 1kg">
                 <h3>حمص 1 كغ</h3>
                 <div class="barcode">كود: 6111250470551</div>
                 <div class="price">€ 2.20</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 10. حمص -->
+            <!-- المنتج 10 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pois_chiches.jpg.jpg" alt="Pois Chiches">
                 <h3>حمص</h3>
                 <div class="barcode">كود: 6111250470551</div>
                 <div class="price">€ 2.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 11. عدس -->
+            <!-- المنتج 11 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/lentille.jpg.jpg" alt="Lentille">
                 <h3>عدس</h3>
                 <div class="barcode">كود: -</div>
                 <div class="price">€ 2.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 12. عدس أحمر -->
+            <!-- المنتج 12 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/lentille_rouge.jpg.jpg" alt="Lentille Rouge">
                 <h3>عدس أحمر</h3>
                 <div class="barcode">كود: 6111258281708</div>
                 <div class="price">€ 3.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 13. كاوكاو محمر -->
+            <!-- المنتج 13 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/cacahu%C3%A8te_grill%C3%A9e.jpg%20.jpg" alt="Cacahuete Grillee">
                 <h3>كاوكاو محمر</h3>
                 <div class="barcode">كود: -</div>
                 <div class="price">€ 3.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 14. كاوكاو نيء -->
+            <!-- المنتج 14 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/arachides_crues.jpg.jpg" alt="Arachides Crues">
                 <h3>كاوكاو نيء</h3>
                 <div class="barcode">كود: 3276650120611</div>
                 <div class="price">€ 3.40</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 15. تين يابس -->
+            <!-- المنتج 15 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_s%C3%A9che.jpg.jpg" alt="Figue Seche">
                 <h3>تين يابس</h3>
                 <div class="barcode">كود: 8420678000331</div>
                 <div class="price">€ 14.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 16. تين إسباني -->
+            <!-- المنتج 16 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_espagnole.jpg.jpg" alt="Figue Espagnole">
                 <h3>تين إسباني</h3>
                 <div class="barcode">كود: 5420036416395</div>
                 <div class="price">€ 14.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 17. تين إسباني 2 -->
+            <!-- المنتج 17 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/figue_espagnole.jpg%20.jpg" alt="Figue Espagnole 2">
                 <h3>تين إسباني (عبوة أخرى)</h3>
                 <div class="barcode">كود: 5420036416395</div>
                 <div class="price">€ 15.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 18. فستق -->
+            <!-- المنتج 18 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/pistach.jpg.jpg" alt="Pistach">
                 <h3>فستق</h3>
                 <div class="barcode">كود: 6111251272932</div>
                 <div class="price">€ 16.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 19. فواكه مجففة -->
+            <!-- المنتج 19 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/fruits%20m%C3%A9langer.jpg.jpg" alt="Fruits Melanges">
                 <h3>فواكه مجففة مختلطة</h3>
                 <div class="barcode">كود: 6111249099466</div>
                 <div class="price">€ 16.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 20. جوز بدون قشر -->
+            <!-- المنتج 20 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_sans_coques.jpg.jpg" alt="Noix Sans Coques">
                 <h3>جوز بدون قشر</h3>
                 <div class="barcode">كود: 6133577000013</div>
                 <div class="price">€ 15.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 21. جوز -->
+            <!-- المنتج 21 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix.jpg.jpg" alt="Noix">
                 <h3>جوز</h3>
                 <div class="barcode">كود: 6111250476430</div>
                 <div class="price">€ 6.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 22. جوز برازيلي -->
+            <!-- المنتج 22 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_du_Br%C3%A9sil.jpg.jpg" alt="Noix du Bresil">
                 <h3>جوز برازيلي</h3>
                 <div class="barcode">كود: 7337259663429</div>
                 <div class="price">€ 19.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 23. كاجو -->
+            <!-- المنتج 23 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_de_cajou.jpg.jpg" alt="Noix de Cajou">
                 <h3>كاجو</h3>
                 <div class="barcode">كود: 6133577000037</div>
                 <div class="price">€ 16.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 24. Hawaii تفاح -->
+            <!-- المنتج 24 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Hawa%C3%AF_poms.jpg.jpg" alt="Hawaii Poms">
                 <h3>عصير Hawaii تفاح</h3>
                 <div class="barcode">كود: -</div>
                 <div class="price">€ 1.90</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 25. Hawaii كانيط -->
+            <!-- المنتج 25 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Hawa%C3%AF_canette.jpg.jpg" alt="Hawaii Canette">
                 <h3>عصير Hawaii (كانيط)</h3>
                 <div class="barcode">كود: 5449000025272</div>
                 <div class="price">€ 0.80</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 26. ليبتون -->
+            <!-- المنتج 26 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Lipton_p%C3%AAche.jpg.jpg" alt="Lipton Peche">
                 <h3>شاي مثلج ليبتون بالخوخ</h3>
                 <div class="barcode">كود: 6111252422411</div>
                 <div class="price">€ 2.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 27. كوكا بدون سكر -->
+            <!-- المنتج 27 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/coca_cola_sans_sucres.jpg.jpg" alt="Coca Cola Sans Sucres">
                 <h3>كوكا كولا بدون سكر</h3>
                 <div class="barcode">كود: 5449000133335</div>
                 <div class="price">€ 1.80</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 28. كوكا 1.5 لتر -->
+            <!-- المنتج 28 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/coca1%2C5l.jpg.jpg" alt="Coca Cola 1.5L">
                 <h3>كوكا كولا 1.5 لتر</h3>
                 <div class="barcode">كود: 5449000000996</div>
                 <div class="price">€ 1.80</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 29. Oasis -->
+            <!-- المنتج 29 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/oisis_2l.jpg.jpg" alt="Oasis 2L">
                 <h3>عصير Oasis 2 لتر</h3>
                 <div class="barcode">كود: 3124480156860</div>
                 <div class="price">€ 2.90</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 30. شاي Taj -->
+            <!-- المنتج 30 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9_taj2.50gr.jpg.jpg" alt="The Taj">
                 <h3>شاي Taj 250 غرام</h3>
                 <div class="barcode">كود: 3558824360208</div>
                 <div class="price">€ 3.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 31. شاي Magmer -->
+            <!-- المنتج 31 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9_magmer2.00gr.jpg.jpg" alt="The Magmer">
                 <h3>شاي Magmer 200 غرام</h3>
                 <div class="barcode">كود: 3700607000126</div>
                 <div class="price">€ 3.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 32. شاي Sidi Lala -->
+            <!-- المنتج 32 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/th%C3%A9%20_sidi_lala2.00gr.jpg.jpg" alt="The Sidi Lala">
                 <h3>شاي Sidi Lala 200 غرام</h3>
                 <div class="barcode">كود: 3700607000706</div>
                 <div class="price">€ 2.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 33. صورة IMG -->
+            <!-- المنتج 33 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/IMG_20261110_224921.jpg" alt="Produit Divers">
                 <h3>منتج متنوع (عدل الاسم)</h3>
                 <div class="barcode">كود: -</div>
                 <div class="price">€ 0.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 34. جوزة الطيب -->
+            <!-- المنتج 34 -->
             <div class="product-card">
                 <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/noix_muscade.jpg%20.jpg" alt="Noix Muscade">
                 <h3>جوزة الطيب</h3>
                 <div class="barcode">كود: 6132205200443</div>
                 <div class="price">€ 20.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+                <button class="add-to-cart" onclick="addToCart(this)">أضف إلى السلة</button>
             </div>
 
-            <!-- 35. زبدة الفول السوداني -->
-            <div class="product-card">
-                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/p%C3%A2te_arachid.jpg.jpg" alt="Pate Arachide">
-                <h3>زبدة الفول السوداني</h3>
-                <div class="barcode">كود: 8198701234564</div>
-                <div class="price">€ 3.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
+        </div> 
+    </div> 
+
+    <!-- نافذة السلة المنبثقة -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h2>سلة المشتريات</h2>
+            <ul id="cart-items-list">
+                <!-- سيتم ملء القائمة هنا عبر جافاسكريبت -->
+            </ul>
+            <div class="total-price">المجموع: € <span id="cart-total">0.00</span></div>
+            
+            <!-- نموذج معلومات التوصيل (جديد) -->
+            <div class="customer-form">
+                <h3><i class="fa-solid fa-user"></i> معلومات التوصيل</h3>
+                <div class="form-group">
+                    <input type="text" id="cust-name" placeholder="الاسم الكامل" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="cust-phone" placeholder="رقم الهاتف" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="cust-address" placeholder="العنوان بالتفصيل (المدينة، الشارع، رقم المنزل...)" required></textarea>
+                </div>
             </div>
 
-            <!-- 36. أرز بسمتي -->
-            <div class="product-card">
-                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/riz_basmati.jpg.jpg" alt="Riz Basmati">
-                <h3>أرز بسمتي</h3>
-                <div class="barcode">كود: 6111242548503</div>
-                <div class="price">€ 3.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
-            </div>
-
-            <!-- 37. Rostoy -->
-            <div class="product-card">
-                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/rostoy_1l.jpg.jpg" alt="Rostoy 1L">
-                <h3>عصير Rostoy 1 لتر</h3>
-                <div class="barcode">كود: 8410261775098</div>
-                <div class="price">€ 2.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
-            </div>
-
-            <!-- 38. Simon -->
-            <div class="product-card">
-                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/Simon1.5l.jpg.jpg" alt="Simon 1.5L">
-                <h3>عصير Simon 1.5 لتر</h3>
-                <div class="barcode">كود: 8410261641423</div>
-                <div class="price">€ 2.50</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
-            </div>
-
-            <!-- 39. دقيق كامل -->
-            <div class="product-card">
-                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/farine%20_compl%C3%A8te10kg.jpg.jpg" alt="Farine Complete 10kg">
-                <h3>دقيق كامل 10 كغ</h3>
-                <div class="barcode">كود: 6111012300065</div>
-                <div class="price">€ 14.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
-            </div>
-
-            <!-- 40. أرز مكسر -->
-            <div class="product-card">
-                <img src="https://raw.githubusercontent.com/swaniarabe/euro-dari/main/images/riz_cass%C3%A920kg.jpg.jpg" alt="Riz Casse 20kg">
-                <h3>أرز مكسر 20 كغ</h3>
-                <div class="barcode">كود: 2000000036397</div>
-                <div class="price">€ 44.00</div>
-                <button class="add-to-cart" onclick="addToCart()">أضف إلى السلة</button>
-            </div>
-
+            <!-- زر تأكيد الطلب عبر واتساب -->
+            <button class="whatsapp-btn" onclick="orderViaWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> تأكيد الطلب عبر واتساب
+            </button>
         </div>
     </div>
 
     <!-- تذييل الصفحة -->
     <footer>
-        <p>© 2024 Euro Dari - جميع الحقوق محفوظة</p>
+        <p>جميع الحقوق محفوظة &copy; 2026 Euro Dari - متجر المنتجات المغربية</p>
     </footer>
 
-    <!-- كود الجافاسكريبت لتفعيل السلة (تأثير بصري فقط) -->
+    <!-- سكريبت إدارة السلة والواتساب -->
     <script>
-        let cartItems = 0;
-        function addToCart() {
-            cartItems++;
-            document.getElementById('cart-count').innerText = cartItems;
-            alert('تمت إضافة المنتج إلى السلة!');
+        let cart = [];
+
+        // دالة إضافة منتج للسلة
+        function addToCart(btn) {
+            let card = btn.closest('.product-card');
+            let name = card.querySelector('h3').innerText;
+            let priceStr = card.querySelector('.price').innerText.replace('€', '').trim();
+            let price = parseFloat(priceStr);
+
+            let existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.qty++;
+            } else {
+                cart.push({ name: name, price: price, qty: 1 });
+            }
+
+            updateCartCount();
+            
+            btn.innerText = "تمت الإضافة ✓";
+            btn.style.background = "#2c3e50";
+            setTimeout(() => {
+                btn.innerText = "أضف إلى السلة";
+                btn.style.background = "#1abc9c";
+            }, 1000);
+        }
+
+        // تحديث عداد السلة
+        function updateCartCount() {
+            let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').innerText = totalQty;
+        }
+
+        // فتح السلة
+        function openCart() {
+            renderCart();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        // إغلاق السلة
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        // عرض محتويات السلة
+        function renderCart() {
+            let list = document.getElementById('cart-items-list');
+            let total = 0;
+            list.innerHTML = '';
+
+            if (cart.length === 0) {
+                list.innerHTML = '<li style="justify-content:center; color:#7f8c8d;">السلة فارغة حالياً</li>';
+            } else {
+                cart.forEach(item => {
+                    let li = document.createElement('li');
+                    li.innerHTML = `
+                        <div>
+                            <strong>${item.name}</strong> <br>
+                            <small style="color:#7f8c8d;">${item.qty} × € ${item.price.toFixed(2)}</small>
+                        </div>
+                        <span>€ ${(item.qty * item.price).toFixed(2)}</span>
+                    `;
+                    list.appendChild(li);
+                    total += item.qty * item.price;
+                });
+            }
+            document.getElementById('cart-total').innerText = total.toFixed(2);
+        }
+
+        // إرسال الطلب إلى واتساب مع معلومات العميل
+        function orderViaWhatsApp() {
+            if (cart.length === 0) {
+                alert("السلة فارغة! يرجى إضافة منتجات أولاً.");
+                return;
+            }
+
+            // جلب بيانات العميل
+            let custName = document.getElementById('cust-name').value.trim();
+            let custPhone = document.getElementById('cust-phone').value.trim();
+            let custAddress = document.getElementById('cust-address').value.trim();
+
+            // التحقق من أن العميل ملأ البيانات
+            if (!custName || !custPhone || !custAddress) {
+                alert("يرجى ملء جميع معلومات التوصيل (الاسم، رقم الهاتف، والعنوان) قبل تأكيد الطلب.");
+                return;
+            }
+
+            // بناء نص الرسالة
+            let message = "مرحباً Euro Dari،\nأريد طلب المنتجات التالية:\n\n";
+            
+            // إضافة المنتجات
+            cart.forEach(item => {
+                message += `🔸 ${item.name} (الكمية: ${item.qty}) = € ${(item.qty * item.price).toFixed(2)}\n`;
+            });
+
+            let total = cart.reduce((sum, item) => sum + (item.qty * item.price), 0);
+            
+            // إضافة بيانات العميل
+            message += `\n💰 المجموع الكلي: € ${total.toFixed(2)}\n\n`;
+            message += `👤 الاسم: ${custName}\n`;
+            message += `📞 رقم الهاتف: ${custPhone}\n`;
+            message += `📍 العنوان: ${custAddress}\n\n`;
+            message += "شكراً لكم!";
+
+            // رقم الواتساب الخاص بالطلبات (مخفي)
+            let whatsappNumber = "33750037162"; 
+            
+            let encodedMessage = encodeURIComponent(message);
+            let whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            // فتح واتساب
+            window.open(whatsappUrl, '_blank');
         }
     </script>
-
 </body>
-</html>       
+</html>
